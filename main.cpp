@@ -3,6 +3,10 @@
 #include <vector>
 #include <iomanip>
 #include <algorithm>
+#include <cstdlib>
+#include <ctime>
+#include <utility>
+#include <random>
 
 using std::left;
 using std::cout;
@@ -20,7 +24,7 @@ struct Studentas {
     double med = 0.0;
 };
 
-int main() {
+int ranka() {
     int stud;
     vector<Studentas> grupe;
     cout << "Kiek studentu grupeje? ";
@@ -36,7 +40,7 @@ int main() {
 
     for (int ii = 0; ii < stud; ii++) {
         Studentas A;          // naujas studentas kiekvieną kartą
-        int sum = 0;          // !!! labai svarbu
+        int sum = 0;
 
         cout << "Iveskite varda ir pavarde: ";
         cin >> A.vardas >> A.pavarde;
@@ -132,19 +136,13 @@ int main() {
             << left
             << std::setw(12) << "Vardas"
             << std::setw(15) << "Pavarde"
-//            << std::setw(6)  << "Egz"
             << std::setw(8)  << "Rez" << endl;
-//            << "Pazymiai" << endl;
 
         for (const Studentas& s : grupe) {
             cout << left
                 << std::setw(12) << s.vardas
                 << std::setw(15) << s.pavarde
-//                << std::setw(6)  << s.exam
                 << std::fixed << std::setprecision(2) << std::setw(8) << s.rez << endl;
-
-/*            for (int p : s.paz) cout << p << " ";
-            cout << endl;*/
         }
     }
 
@@ -153,19 +151,13 @@ int main() {
             << left
             << std::setw(12) << "Vardas"
             << std::setw(15) << "Pavarde"
-//            << std::setw(6)  << "Egz"
             << std::setw(8)  << "Med" << endl;
-//            << "Pazymiai" << endl;
 
         for (const Studentas& s : grupe) {
             cout << left
                 << std::setw(12) << s.vardas
                 << std::setw(15) << s.pavarde
-//                << std::setw(6)  << s.exam
                 << std::fixed << std::setprecision(2) << std::setw(8) << s.med << endl;
-
-/*            for (int p : s.paz) cout << p << " ";
-            cout << endl;*/
         }
     }
 
@@ -174,4 +166,132 @@ int main() {
     }
 
     return 0;
+}
+
+int automatiskai() {
+    
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dist10(1, 10); // 1..10
+
+    int stud;
+    vector<Studentas> grupe;
+
+    vector<string> vardai_v = {"Jonas","Mantas","Tomas", "Petras", "Domas", "Lukas", "Simas", "Dainius", "Giedrius", "Rokas"};
+    vector<string> pavardes_v = {"Kazlauskas","Petrauskas", "Jonauskas", "Domauskas", "Lukauskas", "Simanauskas", "Dainiauskas", "Giedriuskas", "Rokauskas", "Ievaskas"};
+
+    vector<string> vardai_m = {"Ieva","Gabija", "Ugne", "Egle", "Aiste", "Rasa", "Indre", "Dovile", "Agniete", "Viktorija"};
+    vector<string> pavardes_m = {"Kazlauskaite","Petrauskaite", "Jonauskaite", "Domauskaite", "Lukauskaite", "Simanauskaite", "Dainiauskaite", "Giedriuskaite", "Rokauskaite", "Ievaskaite"};
+
+    vector<std::pair<string,string>> studentai;
+
+    for (const auto& v : vardai_v) {
+        for (const auto& p : pavardes_v) {
+            studentai.push_back({v, p});
+        }
+    }
+
+    for (const auto& v : vardai_m) {
+        for (const auto& p : pavardes_m) {
+            studentai.push_back({v, p});
+        }
+    }
+    
+    std::shuffle(studentai.begin(), studentai.end(), gen);
+
+    stud = dist10(gen); // atsitiktinis studentų skaičius nuo 1 iki 10
+
+    for (int ii = 0; ii < stud; ii++) {
+        Studentas A;          // naujas studentas kiekvieną kartą
+        int sum = 0;          // !!! labai svarbu pasižymėt kiekvieną kartą
+
+        int temp;
+        int n = dist10(gen); // atsitiktinis pažymių skaičius nuo 1 iki 10
+
+        A.vardas  = studentai[ii].first;
+        A.pavarde = studentai[ii].second;
+        
+        for (int i = 0; i < n; i++) {
+            temp = dist10(gen); // atsitiktinis pažymys nuo 1 iki 10
+            A.paz.push_back(temp);
+            sum += temp;
+        }
+
+        sort(A.paz.begin(), A.paz.end());
+
+        if (n > 0) {
+            if (n % 2 == 1) {
+                A.med = A.paz[n / 2];
+            } else {
+                A.med = (A.paz[n / 2 - 1] + A.paz[n / 2]) / 2.0;
+            }
+        }
+
+        A.exam = dist10(gen); // atsitiktinis egzamino pažymys nuo 1 iki 10
+
+        if (n > 0) {
+            double vid = static_cast<double>(sum) / n;
+            A.rez = vid * 0.4 + A.exam * 0.6;
+        } else {
+            A.rez = A.exam * 0.6; // jei pažymių nėra
+        }
+
+        grupe.push_back(A);   // čia dedam į grupę
+    }
+
+    cout << "Ka norite matyti (1 - vidurkis, 2 - mediana)? ";
+    int pasirinkimas;
+    cin >> pasirinkimas;
+
+    if (pasirinkimas == 1) {
+        cout << "\n"
+            << left
+            << std::setw(12) << "Vardas"
+            << std::setw(15) << "Pavarde"
+            << std::setw(8)  << "Rez" << endl;
+
+        for (const Studentas& s : grupe) {
+            cout << left
+                << std::setw(12) << s.vardas
+                << std::setw(15) << s.pavarde
+                << std::fixed << std::setprecision(2) << std::setw(8) << s.rez << endl;
+
+        }
+    }
+
+    if (pasirinkimas == 2) {
+        cout << "\n"
+            << left
+            << std::setw(12) << "Vardas"
+            << std::setw(15) << "Pavarde"
+            << std::setw(8)  << "Med" << endl;
+
+        for (const Studentas& s : grupe) {
+            cout << left
+                << std::setw(12) << s.vardas
+                << std::setw(15) << s.pavarde
+                << std::fixed << std::setprecision(2) << std::setw(8) << s.med << endl;
+        }
+    }
+
+    if (pasirinkimas != 1 && pasirinkimas != 2) {
+        cout << "Neteisingas pasirinkimas.\n";
+    }
+
+    return 0;
+}
+
+int main() {
+    int pasirinkti;
+    cout << "Irasyti ranka - 1, generuoti faila - 2: ";
+    cin >> pasirinkti;
+    if (pasirinkti == 1) {
+        return ranka();
+    } else if (pasirinkti == 2) {
+        return automatiskai();
+    }
+    else {
+        cout << "Neteisingas pasirinkimas.\n";
+        return 0;
+    }
 }
