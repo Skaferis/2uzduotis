@@ -19,9 +19,11 @@ struct Studentas {
 };
 
 int main() {
+    int stud;
     vector<Studentas> grupe;
-
-    for (int ii = 0; ii < 2; ii++) {
+    cout << "Kiek studentu grupeje? ";
+    cin >> stud;
+    for (int ii = 0; ii < stud; ii++) {
         Studentas A;          // naujas studentas kiekvieną kartą
         int sum = 0;          // !!! labai svarbu
 
@@ -29,13 +31,11 @@ int main() {
         cin >> A.vardas >> A.pavarde;
 
         cout << "Kiek bus pazymiu? ";
-        int n = 0, temp = 0;
+        int n, temp;
         cin >> n;
 
-        A.paz.clear();
-        A.paz.reserve(n);
-
         cout << "Iveskite pazymius: ";
+        
         for (int i = 0; i < n; i++) {
             cin >> temp;
             A.paz.push_back(temp);
