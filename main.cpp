@@ -331,6 +331,13 @@ int skaitymas() {
 //        cout << sum;
         studentas >> A.exam;
         A.rez = (sum * 0.4 / stulpsk) + A.exam * 0.6; // vidurkis * 0.4 + egzamino pazymys * 0.6
+        sort(A.paz.begin(), A.paz.end());
+
+        if (A.paz.size() % 2 == 1) {
+            A.med = A.paz[A.paz.size() / 2];
+        } else {
+            A.med = (A.paz[A.paz.size() / 2 - 1] + A.paz[A.paz.size() / 2]) / 2.0;
+        }
         grupe.push_back(A);
 
     }
@@ -338,7 +345,7 @@ int skaitymas() {
 //    cout << grupe[0].vardas << " " << grupe[0].pavarde << " " << grupe[0].paz.size() << " pazymiu " << grupe[0].exam << endl;
 
     for (Studentas& s : grupe) {
-        cout << "Vardas: " << s.vardas << ", Pavarde: " << s.pavarde << ", Pazymiai: " << s.paz.size() << ", Egzamino pazymys: " << s.exam << ", Rezultatas: " << s.rez << endl;
+        cout << "Vardas: " << s.vardas << ", Pavarde: " << s.pavarde << ", Pazymiai: " << s.paz.size() << ", Egzamino pazymys: " << s.exam << ", Rezultatas: " << s.rez << ", Mediana: " << s.med << endl;
     }
 
     return 0;
