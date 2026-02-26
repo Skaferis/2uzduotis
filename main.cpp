@@ -417,7 +417,7 @@ int skaitymas() {
 }
 
 int main() {
-/*    int pasirinkti;
+    int pasirinkti;
     cout << "Irasyti ranka - 1, generuoti - 2, nuskaityti is failo - 3: ";
     cin >> pasirinkti;
     if (pasirinkti == 1) {
@@ -430,6 +430,5 @@ int main() {
     else {
         cout << "Neteisingas pasirinkimas.\n";
         return 0;
-    }*/
-    return skaitymas();
+    }
 }
