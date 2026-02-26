@@ -288,7 +288,8 @@ int automatiskai() {
 }
 
 int skaitymas() {
-    ifstream failas("studentai.txt");
+    ifstream failas("studentaimaz.txt");
+    vector<Studentas> grupe;
 
     if (!failas.is_open()) {
         cout << "Nepavyko atidaryti failo studentai.txt\n";
@@ -302,16 +303,42 @@ int skaitymas() {
     string zodis; // laikinas kintamasis žodžiui iš stringstream
 
     int stulpsk;
+    int sum;
     stulpsk = 0;
 
     while (info >> zodis) {
         stulpsk ++;
     }
     stulpsk = stulpsk - 3; 
-    cout << stulpsk << " namu darbu pazymiu\n";
+//    cout << stulpsk << " namu darbu pazymiu\n" << endl;
 
     while (getline(failas, eilute)) {
-        //
+        stringstream studentas(eilute);
+        Studentas A;
+        studentas >> A.vardas >> A.pavarde;
+
+//        cout << endl;
+
+        sum = 0;
+        for (int i = 0; i < stulpsk; i++) {
+            int paz;
+            studentas >> paz;
+            A.paz.push_back(paz);
+            sum += paz;
+//            cout << "(" << i+1 << ") " << paz << " ";
+        } 
+
+//        cout << sum;
+        studentas >> A.exam;
+        A.rez = (sum * 0.4 / stulpsk) + A.exam * 0.6; // vidurkis * 0.4 + egzamino pazymys * 0.6
+        grupe.push_back(A);
+
+    }
+
+//    cout << grupe[0].vardas << " " << grupe[0].pavarde << " " << grupe[0].paz.size() << " pazymiu " << grupe[0].exam << endl;
+
+    for (Studentas& s : grupe) {
+        cout << "Vardas: " << s.vardas << ", Pavarde: " << s.pavarde << ", Pazymiai: " << s.paz.size() << ", Egzamino pazymys: " << s.exam << ", Rezultatas: " << s.rez << endl;
     }
 
     return 0;
