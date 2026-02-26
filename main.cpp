@@ -20,6 +20,7 @@ using std::vector;
 using std::getline;
 using std::ifstream;
 using std::stringstream;
+using std::ofstream;
 
 struct Studentas {
     string vardas = "Vardenis";
@@ -342,11 +343,39 @@ int skaitymas() {
 
     }
 
-//    cout << grupe[0].vardas << " " << grupe[0].pavarde << " " << grupe[0].paz.size() << " pazymiu " << grupe[0].exam << endl;
+//    for (Studentas& s : grupe) {
+//        cout << "Vardas: " << s.vardas << ", Pavarde: " << s.pavarde << ", Pazymiai: " << s.paz.size() << ", Egzamino pazymys: " << s.exam << ", Rezultatas: " << s.rez << ", Mediana: " << s.med << endl;
+//    }
 
-    for (Studentas& s : grupe) {
-        cout << "Vardas: " << s.vardas << ", Pavarde: " << s.pavarde << ", Pazymiai: " << s.paz.size() << ", Egzamino pazymys: " << s.exam << ", Rezultatas: " << s.rez << ", Mediana: " << s.med << endl;
+    ofstream isvestis("kursiokai.txt");
+
+    if (!isvestis.is_open()) {
+        cout << "Nepavyko sukurti kursiokai.txt\n";
+        return 0;
     }
+
+    isvestis << left
+        << std::setw(15) << "Vardas"
+        << std::setw(15) << "Pavarde"
+        << std::setw(18) << "Galutinis (Vid.)"
+        << std::setw(18) << "Galutinis (Med.)"
+        << "\n";
+
+    isvestis << string(66, '-') << "\n";
+
+    for (const Studentas& s : grupe) {
+        double gal_med = 0.4 * s.med + 0.6 * s.exam;
+
+        isvestis << left
+            << std::setw(15) << s.vardas
+            << std::setw(15) << s.pavarde
+            << std::fixed << std::setprecision(2)
+            << std::setw(18) << s.rez
+            << std::setw(18) << gal_med
+            << "\n";
+    }
+
+    isvestis.close();
 
     return 0;
 }
