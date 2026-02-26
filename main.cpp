@@ -289,7 +289,7 @@ int automatiskai() {
 }
 
 int skaitymas() {
-    ifstream failas("studentaimaz.txt");
+    ifstream failas("studentai.txt");
     vector<Studentas> grupe;
 
     if (!failas.is_open()) {
@@ -331,7 +331,8 @@ int skaitymas() {
 
 //        cout << sum;
         studentas >> A.exam;
-        A.rez = (sum * 0.4 / stulpsk) + A.exam * 0.6; // vidurkis * 0.4 + egzamino pazymys * 0.6
+        double vid = (double)sum / stulpsk;
+        A.rez = 0.4 * vid + 0.6 * A.exam;
         sort(A.paz.begin(), A.paz.end());
 
         if (A.paz.size() % 2 == 1) {
@@ -346,6 +347,42 @@ int skaitymas() {
 //    for (Studentas& s : grupe) {
 //        cout << "Vardas: " << s.vardas << ", Pavarde: " << s.pavarde << ", Pazymiai: " << s.paz.size() << ", Egzamino pazymys: " << s.exam << ", Rezultatas: " << s.rez << ", Mediana: " << s.med << endl;
 //    }
+
+    cout << "Rusiavimas pagal: 1-Varda, 2-Pavarde, 3-Galutinis(Vid), 4-Galutinis(Med): ";
+    int r;
+    cin >> r;
+
+    while (cin.fail() || r < 1 || r > 4) {
+        cout << "Iveskite 1..4: ";
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cin >> r;
+    }
+
+    if (r == 1) {
+        sort(grupe.begin(), grupe.end(),
+            [](const Studentas& a, const Studentas& b) {
+                return a.vardas < b.vardas;
+            });
+    }
+    else if (r == 2) {
+        sort(grupe.begin(), grupe.end(),
+            [](const Studentas& a, const Studentas& b) {
+                return a.pavarde < b.pavarde;
+            });
+    }
+    else if (r == 3) {
+        sort(grupe.begin(), grupe.end(),
+            [](const Studentas& a, const Studentas& b) {
+                return a.rez > b.rez; // galutinis (vid.)
+            });
+    }
+    else if (r == 4) {
+        sort(grupe.begin(), grupe.end(),
+            [](const Studentas& a, const Studentas& b) {
+                return a.med > b.med; // galutinis (med.)
+            });
+    }
 
     ofstream isvestis("kursiokai.txt");
 
@@ -364,14 +401,13 @@ int skaitymas() {
     isvestis << string(66, '-') << "\n";
 
     for (const Studentas& s : grupe) {
-        double gal_med = 0.4 * s.med + 0.6 * s.exam;
 
         isvestis << left
             << std::setw(15) << s.vardas
             << std::setw(15) << s.pavarde
             << std::fixed << std::setprecision(2)
             << std::setw(18) << s.rez
-            << std::setw(18) << gal_med
+            << std::setw(18) << s.med
             << "\n";
     }
 
