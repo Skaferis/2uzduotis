@@ -17,6 +17,9 @@ using std::cin;
 using std::endl;
 using std::string;
 using std::vector;
+using std::getline;
+using std::ifstream;
+using std::stringstream;
 
 struct Studentas {
     string vardas = "Vardenis";
@@ -285,11 +288,37 @@ int automatiskai() {
 }
 
 int skaitymas() {
+    ifstream failas("studentai.txt");
+
+    if (!failas.is_open()) {
+        cout << "Nepavyko atidaryti failo studentai.txt\n";
+        return 0;
+    }
+
+    string eilute;
+    getline(failas, eilute); // nusiskaityti pirma eilute (antraštę)
+//    cout << headeris << endl;
+    stringstream info(eilute); // sukurti stringstream objektą iš antraštės
+    string zodis; // laikinas kintamasis žodžiui iš stringstream
+
+    int stulpsk;
+    stulpsk = 0;
+
+    while (info >> zodis) {
+        stulpsk ++;
+    }
+    stulpsk = stulpsk - 3; 
+    cout << stulpsk << " namu darbu pazymiu\n";
+
+    while (getline(failas, eilute)) {
+        //
+    }
+
     return 0;
 }
 
 int main() {
-    int pasirinkti;
+/*    int pasirinkti;
     cout << "Irasyti ranka - 1, generuoti - 2, nuskaityti is failo - 3: ";
     cin >> pasirinkti;
     if (pasirinkti == 1) {
@@ -302,5 +331,6 @@ int main() {
     else {
         cout << "Neteisingas pasirinkimas.\n";
         return 0;
-    }
+    }*/
+    return skaitymas();
 }
