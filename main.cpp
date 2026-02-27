@@ -299,7 +299,7 @@ int skaitymas() {
 
     string eilute;
     getline(failas, eilute); // nusiskaityti pirma eilute (antraštę)
-//    cout << headeris << endl;
+//    cout << headeris << endl; 
     stringstream info(eilute); // sukurti stringstream objektą iš antraštės
     string zodis; // laikinas kintamasis žodžiui iš stringstream
 
@@ -387,6 +387,13 @@ int skaitymas() {
     cout << "Pasirinkite kur matyti rezultatus (1 - ekrane, 2 - faile): ";
     int isvedimas;
     cin >> isvedimas;
+
+    while (cin.fail() || (isvedimas != 1 && isvedimas != 2)) {
+        cout << "Iveskite 1 arba 2: ";
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cin >> isvedimas;
+    }
 
     if (isvedimas == 1) {
         cout << left
