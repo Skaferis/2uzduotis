@@ -289,11 +289,11 @@ int automatiskai() {
 }
 
 int skaitymas() {
-    ifstream failas("studentai.txt");
+    ifstream failas("kursiokai.txt");
     vector<Studentas> grupe;
 
     if (!failas.is_open()) {
-        cout << "Nepavyko atidaryti failo studentai.txt\n";
+        cout << "Nepavyko atidaryti failo kursiokai.txt\n";
         return 0;
     }
 
@@ -384,34 +384,61 @@ int skaitymas() {
             });
     }
 
-    ofstream isvestis("kursiokai.txt");
+    cout << "Pasirinkite kur matyti rezultatus (1 - ekrane, 2 - faile): ";
+    int isvedimas;
+    cin >> isvedimas;
 
-    if (!isvestis.is_open()) {
-        cout << "Nepavyko sukurti kursiokai.txt\n";
-        return 0;
+    if (isvedimas == 1) {
+        cout << left
+            << std::setw(15) << "Vardas"
+            << std::setw(15) << "Pavarde"
+            << std::setw(18) << "Galutinis (Vid.)"
+            << std::setw(18) << "Galutinis (Med.)"
+            << "\n";
+
+        cout << string(66, '-') << "\n";
+
+        for (const Studentas& s : grupe) {
+            cout << left
+                << std::setw(15) << s.vardas
+                << std::setw(15) << s.pavarde
+                << std::fixed << std::setprecision(2)
+                << std::setw(18) << s.rez
+                << std::setw(18) << s.med
+                << "\n";
+        }
     }
+    else if (isvedimas == 2) {
 
-    isvestis << left
-        << std::setw(15) << "Vardas"
-        << std::setw(15) << "Pavarde"
-        << std::setw(18) << "Galutinis (Vid.)"
-        << std::setw(18) << "Galutinis (Med.)"
-        << "\n";
+        ofstream isvestis("rezultatai.txt");
 
-    isvestis << string(66, '-') << "\n";
-
-    for (const Studentas& s : grupe) {
+        if (!isvestis.is_open()) {
+            cout << "Nepavyko sukurti rezultatai.txt\n";
+            return 0;
+        }
 
         isvestis << left
-            << std::setw(15) << s.vardas
-            << std::setw(15) << s.pavarde
-            << std::fixed << std::setprecision(2)
-            << std::setw(18) << s.rez
-            << std::setw(18) << s.med
+            << std::setw(15) << "Vardas"
+            << std::setw(15) << "Pavarde"
+            << std::setw(18) << "Galutinis (Vid.)"
+            << std::setw(18) << "Galutinis (Med.)"
             << "\n";
-    }
 
-    isvestis.close();
+        isvestis << string(66, '-') << "\n";
+
+        for (const Studentas& s : grupe) {
+
+            isvestis << left
+                << std::setw(15) << s.vardas
+                << std::setw(15) << s.pavarde
+                << std::fixed << std::setprecision(2)
+                << std::setw(18) << s.rez
+                << std::setw(18) << s.med
+                << "\n";
+        }
+
+        isvestis.close();
+    }
 
     return 0;
 }
