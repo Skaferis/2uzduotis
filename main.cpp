@@ -10,6 +10,7 @@
 #include <fstream> // failo skaitymas/rašymas
 #include <sstream> // failo eilutės apdorojimas
 #include <cctype> // isalpha
+#include <stdexcept> // std::runtime_error
 
 #include "studentas.h" // studentu struktūros aprašas
 #include "skaiciavimai.h" // funkcijos skaičiavimams
@@ -216,9 +217,13 @@ int skaitymas() {
     ifstream failas("kursiokai.txt");
     vector<Studentas> grupe;
 
-    if (!failas.is_open()) {
-        cout << "Nepavyko atidaryti failo kursiokai.txt\n";
-        return 0;
+    try {
+        if (!failas.is_open()) {
+            throw std::runtime_error("Nepavyko atidaryti failo");
+        }
+    }
+    catch (const std::exception& e) {
+        cout << e.what() << endl;
     }
 
     string eilute;
