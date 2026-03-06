@@ -10,7 +10,10 @@
 #include <fstream> // failo skaitymas/rašymas
 #include <sstream> // failo eilutės apdorojimas
 #include <cctype> // isalpha
+
+
 #include "studentas.h" // studentu struktūros aprašas
+#include "skaiciavimai.h" // funkcijos skaičiavimams
 
 using std::left;
 using std::cout;
@@ -22,34 +25,6 @@ using std::getline;
 using std::ifstream;
 using std::stringstream;
 using std::ofstream;
-
-double skaiciuotiMediana(vector<int> paz) {
-    sort(paz.begin(), paz.end());
-
-    int n = paz.size();
-
-    if (n == 0) {
-        return 0;
-    }
-
-    if (n % 2 == 1) {
-        return paz[n / 2];
-    } else {
-        return (paz[n / 2 - 1] + paz[n / 2]) / 2.0;
-    }
-}
-
-double skaiciuotiGalutini(int suma, int kiekis, int egzaminas) {
-
-    if (kiekis > 0) {
-        double vid = static_cast<double>(suma) / kiekis;
-        return vid * 0.4 + egzaminas * 0.6;
-    } 
-    else {
-        return egzaminas * 0.6;
-    }
-
-}
 
 int ranka() {
     int stud;
