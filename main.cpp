@@ -36,6 +36,22 @@ struct Studentas {
     double med = 0.0;
 };
 
+double skaiciuotiMediana(vector<int> paz) {
+    sort(paz.begin(), paz.end());
+
+    int n = paz.size();
+
+    if (n == 0) {
+        return 0;
+    }
+
+    if (n % 2 == 1) {
+        return paz[n / 2];
+    } else {
+        return (paz[n / 2 - 1] + paz[n / 2]) / 2.0;
+    }
+}
+
 int ranka() {
     int stud;
     vector<Studentas> grupe;
@@ -109,15 +125,7 @@ int ranka() {
             sum += temp;
         }
 
-        sort(A.paz.begin(), A.paz.end());
-
-        if (n > 0) {
-            if (n % 2 == 1) {
-                A.med = A.paz[n / 2];
-            } else {
-                A.med = (A.paz[n / 2 - 1] + A.paz[n / 2]) / 2.0;
-            }
-        }
+        A.med = skaiciuotiMediana(A.paz);
 
         cout << "Iveskite egzamino paz: ";
         cin >> A.exam;
@@ -229,15 +237,7 @@ int automatiskai() {
             sum += temp;
         }
 
-        sort(A.paz.begin(), A.paz.end());
-
-        if (n > 0) {
-            if (n % 2 == 1) {
-                A.med = A.paz[n / 2];
-            } else {
-                A.med = (A.paz[n / 2 - 1] + A.paz[n / 2]) / 2.0;
-            }
-        }
+        A.med = skaiciuotiMediana(A.paz);
 
         A.exam = dist10(gen); // atsitiktinis egzamino pažymys nuo 1 iki 10
 
@@ -338,13 +338,9 @@ int skaitymas() {
         studentas >> A.exam;
         double vid = (double)sum / stulpsk;
         A.rez = 0.4 * vid + 0.6 * A.exam;
-        sort(A.paz.begin(), A.paz.end());
 
-        if (A.paz.size() % 2 == 1) {
-            A.med = A.paz[A.paz.size() / 2];
-        } else {
-            A.med = (A.paz[A.paz.size() / 2 - 1] + A.paz[A.paz.size() / 2]) / 2.0;
-        }
+        A.med = skaiciuotiMediana(A.paz);
+
         grupe.push_back(A);
 
     }
