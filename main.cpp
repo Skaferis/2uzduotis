@@ -15,6 +15,7 @@
 #include "studentas.h" // studentu struktūros aprašas
 #include "skaiciavimai.h" // funkcijos skaičiavimams
 #include "ivestis.h" // funkcijos įvesties validacijai
+#include "isvestis.h" // funkcijos rezultatų spausdinimui
 
 using std::left;
 using std::cout;
@@ -77,33 +78,11 @@ int ranka() {
     cin >> pasirinkimas;
 
     if (pasirinkimas == 1) {
-        cout << "\n"
-            << left
-            << std::setw(12) << "Vardas"
-            << std::setw(15) << "Pavarde"
-            << std::setw(8)  << "Rez" << endl;
-
-        for (const Studentas& s : grupe) {
-            cout << left
-                << std::setw(12) << s.vardas
-                << std::setw(15) << s.pavarde
-                << std::fixed << std::setprecision(2) << std::setw(8) << s.rez << endl;
-        }
+        spausdinti(grupe, false);
     }
 
     if (pasirinkimas == 2) {
-        cout << "\n"
-            << left
-            << std::setw(12) << "Vardas"
-            << std::setw(15) << "Pavarde"
-            << std::setw(8)  << "Med" << endl;
-
-        for (const Studentas& s : grupe) {
-            cout << left
-                << std::setw(12) << s.vardas
-                << std::setw(15) << s.pavarde
-                << std::fixed << std::setprecision(2) << std::setw(8) << s.med << endl;
-        }
+        spausdinti(grupe, true);
     }
 
     if (pasirinkimas != 1 && pasirinkimas != 2) {
@@ -176,34 +155,11 @@ int automatiskai() {
     cin >> pasirinkimas;
 
     if (pasirinkimas == 1) {
-        cout << "\n"
-            << left
-            << std::setw(12) << "Vardas"
-            << std::setw(15) << "Pavarde"
-            << std::setw(8)  << "Rez" << endl;
-
-        for (const Studentas& s : grupe) {
-            cout << left
-                << std::setw(12) << s.vardas
-                << std::setw(15) << s.pavarde
-                << std::fixed << std::setprecision(2) << std::setw(8) << s.rez << endl;
-
-        }
+        spausdinti(grupe, false); // false - rodyti galutini (vidurkis)
     }
 
     if (pasirinkimas == 2) {
-        cout << "\n"
-            << left
-            << std::setw(12) << "Vardas"
-            << std::setw(15) << "Pavarde"
-            << std::setw(8)  << "Med" << endl;
-
-        for (const Studentas& s : grupe) {
-            cout << left
-                << std::setw(12) << s.vardas
-                << std::setw(15) << s.pavarde
-                << std::fixed << std::setprecision(2) << std::setw(8) << s.med << endl;
-        }
+        spausdinti(grupe, true); // true - rodyti galutini (mediana)
     }
 
     if (pasirinkimas != 1 && pasirinkimas != 2) {
