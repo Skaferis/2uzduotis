@@ -29,16 +29,8 @@ using std::ofstream;
 int ranka() {
     int stud;
     vector<Studentas> grupe;
-    cout << "Kiek studentu grupeje? ";
-    cin >> stud;
 
-
-    while (cin.fail()) {
-        cout << "Kiek studentu grupeje, iveskite skaiciu: ";
-        cin.clear();
-        cin.ignore(1000, '\n');
-        cin >> stud;
-    }
+    stud = ivestiSveika("Kiek studentu grupeje? ");
 
     for (int ii = 0; ii < stud; ii++) {
         Studentas A;          // naujas studentas kiekvieną kartą
@@ -52,16 +44,9 @@ int ranka() {
             cin >> A.vardas >> A.pavarde;
         }
 
-        cout << "Kiek bus pazymiu? ";
         int n, temp;
-        cin >> n;
 
-        while (cin.fail()) {
-            cout << "Kiek bus pazymiu, iveskite skaiciu: ";
-            cin.clear();
-            cin.ignore(1000, '\n');
-            cin >> n;
-        }
+        n = ivestiSveika("Kiek bus pazymiu? ");
 
         cout << "Iveskite pazymius: ";
         
@@ -78,16 +63,8 @@ int ranka() {
         }
 
         A.med = skaiciuotiMediana(A.paz);
-
-        cout << "Iveskite egzamino paz: ";
-        cin >> A.exam;
-
-        while (cin.fail()) {
-            cout << "Iveskite egzamino paz, iveskite skaiciu: ";
-            cin.clear();
-            cin.ignore(1000, '\n');
-            cin >> A.exam;
-        }
+        
+        A.exam = ivestiSveika("Iveskite egzamino paz: ");
 
         A.rez = skaiciuotiGalutini(sum, n, A.exam);
 
