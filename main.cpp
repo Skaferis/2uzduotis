@@ -22,6 +22,11 @@ using std::ifstream;
 using std::stringstream;
 using std::ofstream;
 
+struct Asmuo {
+    string vardas;
+    string pavarde;
+};
+
 struct Studentas {
     string vardas = "Vardenis";
     string pavarde = "Pavardenis";
@@ -190,17 +195,17 @@ int automatiskai() {
     vector<string> vardai_m = {"Ieva","Gabija", "Ugne", "Egle", "Aiste", "Rasa", "Indre", "Dovile", "Agniete", "Viktorija"};
     vector<string> pavardes_m = {"Kazlauskaite","Petrauskaite", "Jonauskaite", "Domauskaite", "Lukauskaite", "Simanauskaite", "Dainiauskaite", "Giedriuskaite", "Rokauskaite", "Ievaskaite"};
 
-    vector<std::pair<string,string>> studentai;
+    vector<Asmuo> studentai;
 
     for (const auto& v : vardai_v) {
         for (const auto& p : pavardes_v) {
-            studentai.push_back({v, p});
+            studentai.push_back(Asmuo{v, p});
         }
     }
 
     for (const auto& v : vardai_m) {
         for (const auto& p : pavardes_m) {
-            studentai.push_back({v, p});
+            studentai.push_back(Asmuo{v, p});
         }
     }
     
@@ -215,8 +220,8 @@ int automatiskai() {
         int temp;
         int n = dist10(gen); // atsitiktinis pažymių skaičius nuo 1 iki 10
 
-        A.vardas  = studentai[ii].first;
-        A.pavarde = studentai[ii].second;
+        A.vardas  = studentai[ii].vardas;
+        A.pavarde = studentai[ii].pavarde;
         
         for (int i = 0; i < n; i++) {
             temp = dist10(gen); // atsitiktinis pažymys nuo 1 iki 10
