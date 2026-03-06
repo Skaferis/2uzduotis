@@ -11,9 +11,9 @@
 #include <sstream> // failo eilutės apdorojimas
 #include <cctype> // isalpha
 
-
 #include "studentas.h" // studentu struktūros aprašas
 #include "skaiciavimai.h" // funkcijos skaičiavimams
+#include "ivestis.h" // funkcijos įvesties validacijai
 
 using std::left;
 using std::cout;
@@ -47,31 +47,9 @@ int ranka() {
         cout << "Iveskite varda ir pavarde: ";
         cin >> A.vardas >> A.pavarde;
 
-        bool gerai = false;
-
-        while (!gerai) {
-            gerai = true;
-
-            // tikrinam varda
-            for (char c : A.vardas) {
-                if (!isalpha(c)) {
-                    gerai = false;  
-                    break;
-                }
-            }
-
-            // tikrinam pavarde
-            for (char c : A.pavarde) {
-                if (!isalpha(c)) {
-                    gerai = false;
-                    break;
-                }
-            }
-
-            if (!gerai) {
-                cout << "Bloga ivestis. Iveskite TIK RAIDES (vardas pavarde): ";
-                cin >> A.vardas >> A.pavarde;
-            }
+        while (!arTikRaides(A.vardas) || !arTikRaides(A.pavarde)) {
+            cout << "Bloga ivestis. Iveskite TIK RAIDES (vardas pavarde): ";
+            cin >> A.vardas >> A.pavarde;
         }
 
         cout << "Kiek bus pazymiu? ";
