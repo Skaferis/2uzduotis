@@ -10,6 +10,7 @@
 #include <fstream> // failo skaitymas/rašymas
 #include <sstream> // failo eilutės apdorojimas
 #include <cctype> // isalpha
+#include "studentas.h" // studentu struktūros aprašas
 
 using std::left;
 using std::cout;
@@ -21,20 +22,6 @@ using std::getline;
 using std::ifstream;
 using std::stringstream;
 using std::ofstream;
-
-struct Asmuo {
-    string vardas;
-    string pavarde;
-};
-
-struct Studentas {
-    string vardas = "Vardenis";
-    string pavarde = "Pavardenis";
-    vector<int> paz;
-    int exam = 0;
-    double rez = 0.0;
-    double med = 0.0;
-};
 
 double skaiciuotiMediana(vector<int> paz) {
     sort(paz.begin(), paz.end());
