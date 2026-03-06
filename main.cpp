@@ -376,14 +376,36 @@ int skaitymas() {
 }
 
 int main() {
+
     int pasirinkti;
-    cout << "Irasyti ranka - 1, generuoti - 2, nuskaityti is failo - 3: ";
-    cin >> pasirinkti;
+
+    while (true) {
+
+        try {
+            cout << "Irasyti ranka - 1, generuoti - 2, nuskaityti is failo - 3: ";
+            cin >> pasirinkti;
+
+            if (cin.fail()) {
+                throw std::runtime_error("Neteisinga ivestis");
+            }
+
+            break; // jei ivestis gera - iseinam is ciklo
+        }
+
+        catch (const std::exception&) {
+            cout << "Klaida: iveskite skaiciu.\n";
+            cin.clear();
+            cin.ignore(1000, '\n');
+        }
+    }
+
     if (pasirinkti == 1) {
         return ranka();
-    } else if (pasirinkti == 2) {
+    }
+    else if (pasirinkti == 2) {
         return automatiskai();
-    } else if (pasirinkti == 3) {
+    }
+    else if (pasirinkti == 3) {
         return skaitymas();
     }
     else {
