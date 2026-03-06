@@ -52,6 +52,18 @@ double skaiciuotiMediana(vector<int> paz) {
     }
 }
 
+double skaiciuotiGalutini(int suma, int kiekis, int egzaminas) {
+
+    if (kiekis > 0) {
+        double vid = static_cast<double>(suma) / kiekis;
+        return vid * 0.4 + egzaminas * 0.6;
+    } 
+    else {
+        return egzaminas * 0.6;
+    }
+
+}
+
 int ranka() {
     int stud;
     vector<Studentas> grupe;
@@ -137,12 +149,7 @@ int ranka() {
             cin >> A.exam;
         }
 
-        if (n > 0) {
-            double vid = static_cast<double>(sum) / n;
-            A.rez = vid * 0.4 + A.exam * 0.6;
-        } else {
-            A.rez = A.exam * 0.6; // jei pažymių nėra
-        }
+        A.rez = skaiciuotiGalutini(sum, n, A.exam);
 
         grupe.push_back(A);   // tik čia dedam į grupę
     }
@@ -241,12 +248,7 @@ int automatiskai() {
 
         A.exam = dist10(gen); // atsitiktinis egzamino pažymys nuo 1 iki 10
 
-        if (n > 0) {
-            double vid = static_cast<double>(sum) / n;
-            A.rez = vid * 0.4 + A.exam * 0.6;
-        } else {
-            A.rez = A.exam * 0.6; // jei pažymių nėra
-        }
+        A.rez = skaiciuotiGalutini(sum, n, A.exam);
 
         grupe.push_back(A);   // čia dedam į grupę
     }
@@ -336,8 +338,8 @@ int skaitymas() {
 
 //        cout << sum;
         studentas >> A.exam;
-        double vid = (double)sum / stulpsk;
-        A.rez = 0.4 * vid + 0.6 * A.exam;
+
+        A.rez = skaiciuotiGalutini(sum, stulpsk, A.exam);
 
         A.med = skaiciuotiMediana(A.paz);
 
