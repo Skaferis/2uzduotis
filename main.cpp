@@ -268,6 +268,45 @@ int skaitymas() {
 //        cout << "Vardas: " << s.vardas << ", Pavarde: " << s.pavarde << ", Pazymiai: " << s.paz.size() << ", Egzamino pazymys: " << s.exam << ", Rezultatas: " << s.rez << ", Mediana: " << s.med << endl;
 //    }
 
+    cout << "Rusiavimas pagal: 1-Varda, 2-Pavarde, 3-Galutinis(Vid), 4-Galutinis(Med): ";
+    int r;
+    cin >> r;
+
+    while (cin.fail() || r < 1 || r > 4) {
+        cout << "Iveskite 1 iki 4: ";
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cin >> r;
+    }
+
+    auto rusiavimoPradzia = std::chrono::high_resolution_clock::now();
+
+    if (r == 1) {
+        sort(grupe.begin(), grupe.end(),
+            [](const Studentas& a, const Studentas& b) {
+                return a.vardas < b.vardas;
+            });
+    }
+    else if (r == 2) {
+        sort(grupe.begin(), grupe.end(),
+            [](const Studentas& a, const Studentas& b) {
+                return a.pavarde < b.pavarde;
+            });
+    }
+    else if (r == 3) {
+        sort(grupe.begin(), grupe.end(),
+            [](const Studentas& a, const Studentas& b) {
+                return a.rez > b.rez; // galutinis (vid.)
+            });
+    }
+    else if (r == 4) {
+        sort(grupe.begin(), grupe.end(),
+            [](const Studentas& a, const Studentas& b) {
+                return a.med > b.med; // galutinis (med.)
+            });
+    }
+
+    auto rusiavimoPabaiga = std::chrono::high_resolution_clock::now();
     auto skirstymoPradzia = std::chrono::high_resolution_clock::now();
     for (Studentas& o : grupe) {
         if (o.rez < 5) {
@@ -344,6 +383,7 @@ int skaitymas() {
     auto visoPabaiga = std::chrono::high_resolution_clock::now();
 
     std::chrono::duration<double> skaitymoLaikas = skaitymoPabaiga - skaitymoPradzia;
+    std::chrono::duration<double> rusiavimoLaikas = rusiavimoPabaiga - rusiavimoPradzia;
     std::chrono::duration<double> skirstymoLaikas = skirstymoPabaiga - skirstymoPradzia;
     std::chrono::duration<double> galvLaikas = galvPabaiga - galvPradzia;
     std::chrono::duration<double> vargLaikas = vargPabaiga - vargPradzia;
@@ -351,6 +391,9 @@ int skaitymas() {
 
     cout << failoPavadinimas << " failo nuskaitymo laikas: "
         << skaitymoLaikas.count() << endl;
+
+    cout << failoPavadinimas << " rusiavimo laikas: "
+        << rusiavimoLaikas.count() << endl; 
 
     cout << failoPavadinimas << " irasu dalijimo i dvi grupes laikas: "
         << skirstymoLaikas.count() << endl;
