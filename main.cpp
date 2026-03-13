@@ -200,8 +200,15 @@ int automatiskai() {
 }
 
 int skaitymas() {
-    ifstream failas("kursiokai.txt");
+
+    cout << "Iveskite nuskaitomo failo pavadinima (be .txt): ";
+    string failoPavadinimas;    
+    cin >> failoPavadinimas;
+
+    ifstream failas(failoPavadinimas+".txt");
     vector<Studentas> grupe;
+    vector<Studentas> vargsiukai;
+    vector<Studentas> galvociai;
 
     try {
         if (!failas.is_open()) {
@@ -214,7 +221,6 @@ int skaitymas() {
 
     string eilute;
     getline(failas, eilute); // nusiskaityti pirma eilute (antraštę)
-//    cout << headeris << endl; 
     stringstream info(eilute); // sukurti stringstream objektą iš antraštės
     string zodis; // laikinas kintamasis žodžiui iš stringstream
 
@@ -226,14 +232,11 @@ int skaitymas() {
         stulpsk ++;
     }
     stulpsk = stulpsk - 3; 
-//    cout << stulpsk << " namu darbu pazymiu\n" << endl;
 
     while (getline(failas, eilute)) {
         stringstream studentas(eilute);
         Studentas A;
         studentas >> A.vardas >> A.pavarde;
-
-//        cout << endl;
 
         sum = 0;
         for (int i = 0; i < stulpsk; i++) {
@@ -259,104 +262,43 @@ int skaitymas() {
 //        cout << "Vardas: " << s.vardas << ", Pavarde: " << s.pavarde << ", Pazymiai: " << s.paz.size() << ", Egzamino pazymys: " << s.exam << ", Rezultatas: " << s.rez << ", Mediana: " << s.med << endl;
 //    }
 
-    cout << "Rusiavimas pagal: 1-Varda, 2-Pavarde, 3-Galutinis(Vid), 4-Galutinis(Med): ";
-    int r;
-    cin >> r;
-
-    while (cin.fail() || r < 1 || r > 4) {
-        cout << "Iveskite 1..4: ";
-        cin.clear();
-        cin.ignore(1000, '\n');
-        cin >> r;
-    }
-
-    if (r == 1) {
-        sort(grupe.begin(), grupe.end(),
-            [](const Studentas& a, const Studentas& b) {
-                return a.vardas < b.vardas;
-            });
-    }
-    else if (r == 2) {
-        sort(grupe.begin(), grupe.end(),
-            [](const Studentas& a, const Studentas& b) {
-                return a.pavarde < b.pavarde;
-            });
-    }
-    else if (r == 3) {
-        sort(grupe.begin(), grupe.end(),
-            [](const Studentas& a, const Studentas& b) {
-                return a.rez > b.rez; // galutinis (vid.)
-            });
-    }
-    else if (r == 4) {
-        sort(grupe.begin(), grupe.end(),
-            [](const Studentas& a, const Studentas& b) {
-                return a.med > b.med; // galutinis (med.)
-            });
-    }
-
-    cout << "Pasirinkite kur matyti rezultatus (1 - ekrane, 2 - faile): ";
-    int isvedimas;
-    cin >> isvedimas;
-
-    while (cin.fail() || (isvedimas != 1 && isvedimas != 2)) {
-        cout << "Iveskite 1 arba 2: ";
-        cin.clear();
-        cin.ignore(1000, '\n');
-        cin >> isvedimas;
-    }
-
-    if (isvedimas == 1) {
-        cout << left
-            << std::setw(15) << "Vardas"
-            << std::setw(15) << "Pavarde"
-            << std::setw(18) << "Galutinis (Vid.)"
-            << std::setw(18) << "Galutinis (Med.)"
-            << "\n";
-
-        cout << string(66, '-') << "\n";
-
-        for (const Studentas& s : grupe) {
-            cout << left
-                << std::setw(15) << s.vardas
-                << std::setw(15) << s.pavarde
-                << std::fixed << std::setprecision(2)
-                << std::setw(18) << s.rez
-                << std::setw(18) << s.med
-                << "\n";
+    for (Studentas& o : grupe) {
+        if (o.rez < 5) {
+            vargsiukai.push_back(o);
+        }
+        else {
+            galvociai.push_back(o);
         }
     }
-    else if (isvedimas == 2) {
 
-        ofstream isvestis("rezultatai.txt");
+    ofstream isvestis(failoPavadinimas+"_rezultatai.txt");
 
-        if (!isvestis.is_open()) {
-            cout << "Nepavyko sukurti rezultatai.txt\n";
-            return 0;
-        }
+    if (!isvestis.is_open()) {
+        cout << failoPavadinimas << "_rezultatai.txt" << "nepavyko sukurti\n";
+        return 0;
+    }
+
+    isvestis << left
+        << std::setw(15) << "Vardas"
+        << std::setw(15) << "Pavarde"
+        << std::setw(18) << "Galutinis (Vid.)"
+        << std::setw(18) << "Galutinis (Med.)"
+        << "\n";
+
+    isvestis << string(66, '-') << "\n";
+
+    for (const Studentas& s : grupe) {
 
         isvestis << left
-            << std::setw(15) << "Vardas"
-            << std::setw(15) << "Pavarde"
-            << std::setw(18) << "Galutinis (Vid.)"
-            << std::setw(18) << "Galutinis (Med.)"
+            << std::setw(15) << s.vardas
+            << std::setw(15) << s.pavarde
+            << std::fixed << std::setprecision(2)
+            << std::setw(18) << s.rez
+            << std::setw(18) << s.med
             << "\n";
-
-        isvestis << string(66, '-') << "\n";
-
-        for (const Studentas& s : grupe) {
-
-            isvestis << left
-                << std::setw(15) << s.vardas
-                << std::setw(15) << s.pavarde
-                << std::fixed << std::setprecision(2)
-                << std::setw(18) << s.rez
-                << std::setw(18) << s.med
-                << "\n";
-        }
-
-        isvestis.close();
     }
+
+    isvestis.close();
 
     return 0;
 }
