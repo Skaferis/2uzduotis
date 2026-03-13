@@ -299,6 +299,13 @@ int skaitymas() {
             << "\n";
     }
 
+    ofstream varg("vargsiukai" + failoPavadinimas + "_rezultatai.txt");
+
+    if (!varg.is_open()) {
+        cout << "vargsiukai_" << failoPavadinimas << "_rezultatai.txt" << "nepavyko sukurti\n";
+        return 0;
+    }
+
     varg << left
         << std::setw(15) << "Vardas"
         << std::setw(15) << "Pavarde"
