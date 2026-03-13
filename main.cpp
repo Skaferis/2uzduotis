@@ -204,6 +204,9 @@ int skaitymas() {
     cout << "Iveskite nuskaitomo failo pavadinima (be .txt): ";
     string failoPavadinimas;    
     cin >> failoPavadinimas;
+    
+    auto visoPradzia = std::chrono::high_resolution_clock::now();
+    auto skaitymoPradzia = std::chrono::high_resolution_clock::now();
 
     ifstream failas(failoPavadinimas+".txt");
     vector<Studentas> grupe;
@@ -259,10 +262,13 @@ int skaitymas() {
 
     }
 
+    auto skaitymoPabaiga = std::chrono::high_resolution_clock::now();
+
 //    for (Studentas& s : grupe) {
 //        cout << "Vardas: " << s.vardas << ", Pavarde: " << s.pavarde << ", Pazymiai: " << s.paz.size() << ", Egzamino pazymys: " << s.exam << ", Rezultatas: " << s.rez << ", Mediana: " << s.med << endl;
 //    }
 
+    auto skirstymoPradzia = std::chrono::high_resolution_clock::now();
     for (Studentas& o : grupe) {
         if (o.rez < 5) {
             vargsiukai.push_back(o);
@@ -271,6 +277,7 @@ int skaitymas() {
             galvociai.push_back(o);
         }
     }
+    auto skirstymoPabaiga = std::chrono::high_resolution_clock::now();
 
     ofstream galv("galvociai_" + failoPavadinimas + "_rezultatai.txt");
 
