@@ -16,6 +16,7 @@
 #include "skaiciavimai.h" // funkcijos skaičiavimams
 #include "ivestis.h" // funkcijos įvesties validacijai
 #include "isvestis.h" // funkcijos rezultatų spausdinimui
+#include "generavimas.h" // funkcija generavimui
 
 using std::left;
 using std::cout;
@@ -93,7 +94,6 @@ int ranka() {
 }
 
 int generavimas() {
-
     int ndKiekis;
 
     cout << "Kiek namu darbu pazymiu generuoti kiekvienam studentui? ";
@@ -106,51 +106,17 @@ int generavimas() {
         cin >> ndKiekis;
     }
 
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> pazymys(1,10);
-
     vector<int> dydziai = {1000, 10000, 100000, 1000000, 10000000};
 
-    for (int kiekis : dydziai) {
-
-        string failoPavadinimas = "studentai" + std::to_string(kiekis) + ".txt";
-
-        ofstream failas(failoPavadinimas);
-
-        if (!failas.is_open()) {
-            cout << "Nepavyko sukurti failo: " << failoPavadinimas << endl;
-            continue;
+    try {
+        for (int kiekis : dydziai) {
+            string failoPavadinimas = "studentai" + std::to_string(kiekis) + ".txt";
+            generuotiFaila(failoPavadinimas, kiekis, ndKiekis);
+            cout << "Sugeneruotas failas: " << failoPavadinimas << endl;
         }
-
-        // header
-        failas << std::left
-               << std::setw(20) << "Vardas"
-               << std::setw(20) << "Pavarde";
-
-        for (int i = 1; i <= ndKiekis; i++) {
-            failas << std::setw(8) << ("ND" + std::to_string(i));
-        }
-
-        failas << std::setw(8) << "Egz." << "\n";
-
-        // studentai
-        for (int i = 1; i <= kiekis; i++) {
-
-            failas << std::left
-                   << std::setw(20) << ("Vardas" + std::to_string(i))
-                   << std::setw(20) << ("Pavarde" + std::to_string(i));
-
-            for (int j = 0; j < ndKiekis; j++) {
-                failas << std::setw(8) << pazymys(gen);
-            }
-
-            failas << std::setw(8) << pazymys(gen) << "\n";
-        }
-
-        failas.close();
-
-        cout << "Sugeneruotas failas: " << failoPavadinimas << endl;
+    }
+    catch (const std::exception& e) {
+        cout << e.what() << endl;
     }
 
     return 0;
@@ -402,7 +368,7 @@ int main() {
     while (true) {
 
         try {
-            cout << "Irasyti ranka - 1, generuoti - 2, nuskaityti is failo - 3: ";
+            cout << "Irasyti ranka - 1, generuoti - 2, nuskaityti is failo - 3, generuoti failus - 4: ";
             cin >> pasirinkti;
 
             if (cin.fail()) {
