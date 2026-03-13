@@ -92,6 +92,10 @@ int ranka() {
     return 0;
 }
 
+int generavimas() {
+    return 0;
+}
+
 int automatiskai() {
     
     std::random_device rd;
@@ -364,8 +368,12 @@ int main() {
     else if (pasirinkti == 3) {
         return skaitymas();
     }
+    else if (pasirinkti == 4) {
+        return generavimas();
+    }
     else {
         cout << "Neteisingas pasirinkimas.\n";
         return 0;
     }
+
 }
