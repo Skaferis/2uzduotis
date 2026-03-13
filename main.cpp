@@ -217,6 +217,7 @@ int skaitymas() {
     }
     catch (const std::exception& e) {
         cout << e.what() << endl;
+        return 0;
     }
 
     string eilute;
