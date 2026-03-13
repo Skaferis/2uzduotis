@@ -34,11 +34,11 @@ Programos testavimui buvo sugeneruoti šie failai:
 | studentai1000000.txt | 1 000 000 |
 | studentai10000000.txt | 10 000 000 |
 
-## 1 tyrimas – failų generavimo sparta
+## 1 tyrimas – failų generavimo sparta, kai ND kiekis = 3
 
 Buvo matuojamas laikas, reikalingas sugeneruoti studentų failus.
 
-## 2 tyrimas – duomenų apdorojimo sparta
+## 2 tyrimas – duomenų apdorojimo sparta, kai ND kiekis = 3 ir rušiuojama pagal rezultatą
 
 Buvo matuojamas:
 
@@ -64,3 +64,9 @@ g++ -O2 main.cpp skaiciavimai.cpp ivestis.cpp isvestis.cpp generavimas.cpp -o pr
 Paleidimas:
 
 ./programa
+
+## Rezultatų nuotraukos
+
+https://media.discordapp.net/attachments/912454523077935144/1482028146441326662/Screenshot_2026-03-13_165023.png?ex=69b575c4&is=69b42444&hm=d633f18dea471f1dcdc43f76ff28ce727e7465736054fd59fd4f349ab257ea06&=&format=webp&quality=lossless&width=1371&height=221
+
+https://media.discordapp.net/attachments/912454523077935144/1482029272922194010/image.png?ex=69b576d1&is=69b42551&hm=0450ef0d123313a049b8db7cfcfb2f26956603a1b6674c8117189bea4ed92138&=&format=webp&quality=lossless&width=1095&height=930
