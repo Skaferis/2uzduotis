@@ -262,6 +262,8 @@ int skaitymas() {
 
     }
 
+    failas.close();
+
     auto skaitymoPabaiga = std::chrono::high_resolution_clock::now();
 
 //    for (Studentas& s : grupe) {
@@ -351,7 +353,7 @@ int skaitymas() {
     auto galvPabaiga = std::chrono::high_resolution_clock::now();
     
     auto vargPradzia = std::chrono::high_resolution_clock::now();
-    ofstream varg("vargsiukai" + failoPavadinimas + "_rezultatai.txt");
+    ofstream varg("vargsiukai_" + failoPavadinimas + "_rezultatai.txt");
 
     if (!varg.is_open()) {
         cout << "vargsiukai_" << failoPavadinimas << "_rezultatai.txt" << "nepavyko sukurti\n";
