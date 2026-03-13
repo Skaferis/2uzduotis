@@ -3,10 +3,15 @@
 #include <random>
 #include <stdexcept>
 #include <string>
+#include <chrono>
+#include <iostream>
 
 #include "generavimas.h"
 
 void generuotiFaila(const std::string& failoPavadinimas, int studentuKiekis, int ndKiekis) {
+
+    auto pradzia = std::chrono::high_resolution_clock::now();
+
     std::ofstream failas(failoPavadinimas);
 
     if (!failas.is_open()) {
@@ -40,4 +45,11 @@ void generuotiFaila(const std::string& failoPavadinimas, int studentuKiekis, int
     }
 
     failas.close();
+
+    auto pabaiga = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> trukme = pabaiga - pradzia;
+
+    std::cout << failoPavadinimas << " kurimo laikas: "
+         << trukme.count() << " s" << std::endl;
 }
