@@ -299,6 +299,8 @@ int skaitymas() {
             << "\n";
     }
 
+    galv.close();
+
     ofstream varg("vargsiukai" + failoPavadinimas + "_rezultatai.txt");
 
     if (!varg.is_open()) {
@@ -326,7 +328,6 @@ int skaitymas() {
             << "\n";
     }
 
-    galv.close();
     varg.close();
 
     return 0;
