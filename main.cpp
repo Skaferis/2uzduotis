@@ -93,6 +93,66 @@ int ranka() {
 }
 
 int generavimas() {
+
+    int ndKiekis;
+
+    cout << "Kiek namu darbu pazymiu generuoti kiekvienam studentui? ";
+    cin >> ndKiekis;
+
+    while (cin.fail() || ndKiekis <= 0) {
+        cout << "Iveskite teigiama skaiciu: ";
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cin >> ndKiekis;
+    }
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> pazymys(1,10);
+
+    vector<int> dydziai = {1000, 10000, 100000, 1000000, 10000000};
+
+    for (int kiekis : dydziai) {
+
+        string failoPavadinimas = "studentai" + std::to_string(kiekis) + ".txt";
+
+        ofstream failas(failoPavadinimas);
+
+        if (!failas.is_open()) {
+            cout << "Nepavyko sukurti failo: " << failoPavadinimas << endl;
+            continue;
+        }
+
+        // header
+        failas << std::left
+               << std::setw(20) << "Vardas"
+               << std::setw(20) << "Pavarde";
+
+        for (int i = 1; i <= ndKiekis; i++) {
+            failas << std::setw(8) << ("ND" + std::to_string(i));
+        }
+
+        failas << std::setw(8) << "Egz." << "\n";
+
+        // studentai
+        for (int i = 1; i <= kiekis; i++) {
+
+            failas << std::left
+                   << std::setw(20) << ("Vardas" + std::to_string(i))
+                   << std::setw(20) << ("Pavarde" + std::to_string(i));
+
+            for (int j = 0; j < ndKiekis; j++) {
+                failas << std::setw(8) << pazymys(gen);
+            }
+
+            failas << std::setw(8) << pazymys(gen) << "\n";
+        }
+
+        failas.close();
+
+        cout << "Sugeneruotas failas: " << failoPavadinimas << endl;
+    }
+
     return 0;
 }
 
