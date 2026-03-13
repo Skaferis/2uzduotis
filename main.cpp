@@ -279,6 +279,7 @@ int skaitymas() {
     }
     auto skirstymoPabaiga = std::chrono::high_resolution_clock::now();
 
+    auto galvPradzia = std::chrono::high_resolution_clock::now();
     ofstream galv("galvociai_" + failoPavadinimas + "_rezultatai.txt");
 
 
@@ -308,7 +309,9 @@ int skaitymas() {
     }
 
     galv.close();
-
+    auto galvPabaiga = std::chrono::high_resolution_clock::now();
+    
+    auto vargPradzia = std::chrono::high_resolution_clock::now();
     ofstream varg("vargsiukai" + failoPavadinimas + "_rezultatai.txt");
 
     if (!varg.is_open()) {
@@ -337,6 +340,29 @@ int skaitymas() {
     }
 
     varg.close();
+    auto vargPabaiga = std::chrono::high_resolution_clock::now();
+    auto visoPabaiga = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> skaitymoLaikas = skaitymoPabaiga - skaitymoPradzia;
+    std::chrono::duration<double> skirstymoLaikas = skirstymoPabaiga - skirstymoPradzia;
+    std::chrono::duration<double> galvLaikas = galvPabaiga - galvPradzia;
+    std::chrono::duration<double> vargLaikas = vargPabaiga - vargPradzia;
+    std::chrono::duration<double> visoLaikas = visoPabaiga - visoPradzia;
+
+    cout << failoPavadinimas << " failo nuskaitymo laikas: "
+        << skaitymoLaikas.count() << endl;
+
+    cout << failoPavadinimas << " irasu dalijimo i dvi grupes laikas: "
+        << skirstymoLaikas.count() << endl;
+
+    cout << failoPavadinimas << " galvociu irasymo i faila laikas: "
+        << galvLaikas.count() << endl;
+
+    cout << failoPavadinimas << " vargsiuku irasymo i faila laikas: "
+        << vargLaikas.count() << endl;
+
+    cout << failoPavadinimas << " bendras testo laikas: "
+        << visoLaikas.count() << endl;
 
     return 0;
 }
