@@ -11,6 +11,7 @@
 #include <sstream> // failo eilutės apdorojimas
 #include <cctype> // isalpha
 #include <stdexcept> // std::runtime_error
+#include <chrono>
 
 #include "studentas.h" // studentu struktūros aprašas
 #include "skaiciavimai.h" // funkcijos skaičiavimams
@@ -112,7 +113,6 @@ int generavimas() {
         for (int kiekis : dydziai) {
             string failoPavadinimas = "studentai" + std::to_string(kiekis) + ".txt";
             generuotiFaila(failoPavadinimas, kiekis, ndKiekis);
-            cout << "Sugeneruotas failas: " << failoPavadinimas << endl;
         }
     }
     catch (const std::exception& e) {
