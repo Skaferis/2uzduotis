@@ -271,25 +271,26 @@ int skaitymas() {
         }
     }
 
-    ofstream isvestis(failoPavadinimas+"_rezultatai.txt");
+    ofstream galv("galvociai_" + failoPavadinimas + "_rezultatai.txt");
 
-    if (!isvestis.is_open()) {
-        cout << failoPavadinimas << "_rezultatai.txt" << "nepavyko sukurti\n";
+
+    if (!galv.is_open()) {
+        cout << "galvociai_" << failoPavadinimas << "_rezultatai.txt" << "nepavyko sukurti\n";
         return 0;
     }
 
-    isvestis << left
+    galv << left
         << std::setw(15) << "Vardas"
         << std::setw(15) << "Pavarde"
         << std::setw(18) << "Galutinis (Vid.)"
         << std::setw(18) << "Galutinis (Med.)"
         << "\n";
 
-    isvestis << string(66, '-') << "\n";
+    galv << string(66, '-') << "\n";
 
-    for (const Studentas& s : grupe) {
+    for (const Studentas& s : galvociai) {
 
-        isvestis << left
+        galv << left
             << std::setw(15) << s.vardas
             << std::setw(15) << s.pavarde
             << std::fixed << std::setprecision(2)
@@ -298,7 +299,28 @@ int skaitymas() {
             << "\n";
     }
 
-    isvestis.close();
+    varg << left
+        << std::setw(15) << "Vardas"
+        << std::setw(15) << "Pavarde"
+        << std::setw(18) << "Galutinis (Vid.)"
+        << std::setw(18) << "Galutinis (Med.)"
+        << "\n";
+
+    varg << string(66, '-') << "\n";
+
+    for (const Studentas& s : vargsiukai) {
+
+        varg << left
+            << std::setw(15) << s.vardas
+            << std::setw(15) << s.pavarde
+            << std::fixed << std::setprecision(2)
+            << std::setw(18) << s.rez
+            << std::setw(18) << s.med
+            << "\n";
+    }
+
+    galv.close();
+    varg.close();
 
     return 0;
 }
