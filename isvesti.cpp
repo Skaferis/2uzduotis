@@ -1,11 +1,12 @@
 #include <iostream>
 #include <iomanip>
+#include <deque>
 #include "isvestis.h"
 
 using std::cout;
 using std::left;
 
-void spausdinti(const std::vector<Studentas>& grupe, bool rodytiMediana) {
+void spausdinti(const std::deque<Studentas>& grupe, bool rodytiMediana) {
 
     cout << left
          << std::setw(12) << "Vardas"
