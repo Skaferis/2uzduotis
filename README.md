@@ -67,6 +67,22 @@ Paleidimas:
 
 ## Rezultatų nuotraukos
 
-https://media.discordapp.net/attachments/912454523077935144/1482028146441326662/Screenshot_2026-03-13_165023.png?ex=69b575c4&is=69b42444&hm=d633f18dea471f1dcdc43f76ff28ce727e7465736054fd59fd4f349ab257ea06&=&format=webp&quality=lossless&width=1371&height=221
+https://prnt.sc/XKvfu3bsZgqw
 
-https://media.discordapp.net/attachments/912454523077935144/1482029272922194010/image.png?ex=69b576d1&is=69b42551&hm=0450ef0d123313a049b8db7cfcfb2f26956603a1b6674c8117189bea4ed92138&=&format=webp&quality=lossless&width=1095&height=930
+https://prnt.sc/0OaFDSNmRW8w
+
+
+## Konteinerių testavimas (std::deque)
+
+Testavimas atliktas naudojant std::deque<Studentas> konteinerį.
+Kiekvienam studentui generuoti 3 namų darbų pažymiai (ND = 3).
+
+Testavimo sąlygos
+Duomenys generuojami automatiškai
+Failų dydžiai:
+1 000
+10 000
+100 000
+1 000 000
+10 000 000 įrašų
+Matavimo vienetas: sekundės (s)
