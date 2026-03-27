@@ -12,6 +12,7 @@
 #include <cctype> // isalpha
 #include <stdexcept> // std::runtime_error
 #include <chrono>
+#include <deque>
 
 #include "studentas.h" // studentu struktūros aprašas
 #include "skaiciavimai.h" // funkcijos skaičiavimams
@@ -32,7 +33,7 @@ using std::ofstream;
 
 int ranka() {
     int stud;
-    vector<Studentas> grupe;
+    std::deque<Studentas> grupe;
 
     stud = ivestiSveika("Kiek studentu grupeje? ");
 
@@ -129,7 +130,7 @@ int automatiskai() {
     std::uniform_int_distribution<> dist10(1, 10); // 1..10
 
     int stud;
-    vector<Studentas> grupe;
+    std::deque<Studentas> grupe;
 
     vector<string> vardai_v = {"Jonas","Mantas","Tomas", "Petras", "Domas", "Lukas", "Simas", "Dainius", "Giedrius", "Rokas"};
     vector<string> pavardes_v = {"Kazlauskas","Petrauskas", "Jonauskas", "Domauskas", "Lukauskas", "Simanauskas", "Dainiauskas", "Giedriuskas", "Rokauskas", "Ievaskas"};
@@ -209,9 +210,9 @@ int skaitymas() {
     auto skaitymoPradzia = std::chrono::high_resolution_clock::now();
 
     ifstream failas(failoPavadinimas+".txt");
-    vector<Studentas> grupe;
-    vector<Studentas> vargsiukai;
-    vector<Studentas> galvociai;
+    std::deque<Studentas> grupe;
+    std::deque<Studentas> vargsiukai;
+    std::deque<Studentas> galvociai;
 
     try {
         if (!failas.is_open()) {
