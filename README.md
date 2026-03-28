@@ -55,16 +55,6 @@ Didžiausią dalį vykdymo laiko užima duomenų nuskaitymas ir rūšiavimas.
 
 Failų generavimas taip pat tampa žymiai lėtesnis su labai dideliais duomenų kiekiais.
 
-## Programos paleidimas
-
-Programa kompiliuojama:
-
-g++ main_(vector/deque/list).cpp skaiciavimai.cpp ivestis.cpp isvestis.cpp generavimas.cpp -o programa
-
-Paleidimas:
-
-./programa
-
 ## Rezultatų nuotraukos
 
 https://prnt.sc/XKvfu3bsZgqw
@@ -253,3 +243,27 @@ Pridėtas studentų failų generatorius, realizuotas studentų skirstymas į dvi
 
 Atliktas std::vector, std::list ir std::deque konteinerių našumo tyrimas, palygintos studentų skirstymo strategijos.
 
+## Kompiliavimas ir paleidimas
+
+### Naudojant Makefile
+
+Projektas turi paruoštą `Makefile`.
+
+Norint sukompiliuoti programos versijas:
+
+```bash
+make vector
+make deque
+main list
+
+## Kompiliuoti terminale:
+
+g++ main_vector.cpp skaiciavimai.cpp ivestis.cpp isvesti.cpp generavimas.cpp -o vector
+g++ main_deque.cpp skaiciavimai.cpp ivestis.cpp isvesti.cpp generavimas.cpp -o deque
+g++ main_list.cpp skaiciavimai.cpp ivestis.cpp isvesti.cpp generavimas.cpp -o list
+
+./vector.exe
+./deque.exe
+./list.exe
+
+## Svarbu: norint kompiliuoti deque ar list failą, privalote pakeisti konteinerio tipą į atitinkamą isvestis.h ir isvesti.cpp failuose!!!
