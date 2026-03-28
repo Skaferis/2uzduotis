@@ -3,7 +3,6 @@
 #include <vector>
 #include <iomanip>
 #include <algorithm>
-#include <iterator>
 #include <cstdlib>
 #include <ctime>
 #include <utility>
@@ -273,7 +272,7 @@ int skaitymas() {
 //        cout << "Vardas: " << s.vardas << ", Pavarde: " << s.pavarde << ", Pazymiai: " << s.paz.size() << ", Egzamino pazymys: " << s.exam << ", Rezultatas: " << s.rez << ", Mediana: " << s.med << endl;
 //    }
 
-/*    cout << "Rusiavimas pagal: 1-Varda, 2-Pavarde, 3-Galutinis(Vid), 4-Galutinis(Med): ";
+    cout << "Rusiavimas pagal: 1-Varda, 2-Pavarde, 3-Galutinis(Vid), 4-Galutinis(Med): ";
     int r;
     cin >> r;
 
@@ -282,9 +281,7 @@ int skaitymas() {
         cin.clear();
         cin.ignore(1000, '\n');
         cin >> r;
-    }*/
-
-    int r = 3; // rusiavimas pagal galutini (vidurkis)
+    }
 
     auto rusiavimoPradzia = std::chrono::high_resolution_clock::now();
 
@@ -311,11 +308,14 @@ int skaitymas() {
 
     auto rusiavimoPabaiga = std::chrono::high_resolution_clock::now();
     auto skirstymoPradzia = std::chrono::high_resolution_clock::now();
-    std::copy_if(grupe.begin(), grupe.end(), std::back_inserter(vargsiukai),
-        [](const Studentas& s) { return s.rez < 5.0; });
-
-    std::copy_if(grupe.begin(), grupe.end(), std::back_inserter(galvociai),
-        [](const Studentas& s) { return s.rez >= 5.0; });
+    for (Studentas& o : grupe) {
+        if (o.rez < 5) {
+            vargsiukai.push_back(o);
+        }
+        else {
+            galvociai.push_back(o);
+        }
+    }
     auto skirstymoPabaiga = std::chrono::high_resolution_clock::now();
 
     auto galvPradzia = std::chrono::high_resolution_clock::now();
@@ -398,20 +398,20 @@ int skaitymas() {
     cout << failoPavadinimas << " irasu dalijimo i dvi grupes laikas: "
         << skirstymoLaikas.count() << endl;
 
-/*    cout << failoPavadinimas << " galvociu irasymo i faila laikas: "
+    cout << failoPavadinimas << " galvociu irasymo i faila laikas: "
         << galvLaikas.count() << endl;
 
     cout << failoPavadinimas << " vargsiuku irasymo i faila laikas: "
         << vargLaikas.count() << endl;
 
     cout << failoPavadinimas << " bendras testo laikas: "
-        << visoLaikas.count() << endl;*/
+        << visoLaikas.count() << endl;
 
     return 0;
 }
 
 int main() {
-/*
+
     int pasirinkti;
 
     while (true) {
@@ -450,5 +450,5 @@ int main() {
         cout << "Neteisingas pasirinkimas.\n";
         return 0;
     }
-*/ return skaitymas();
+
 }

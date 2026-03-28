@@ -162,6 +162,8 @@ Vector ir deque skirsto panašiai, o list užtrunka gerokai ilgiau.
 | 1 000 000     | ??             | -- Užtruko per ilgai
 | 10 000 000     | ??            | -- Užtruko per ilgai
 
+https://prnt.sc/IICk56_DyjhH
+
 # Deque skirtstymas
 
 | Įrašų skaičius | Skirstymas (s) |
@@ -171,6 +173,8 @@ Vector ir deque skirsto panašiai, o list užtrunka gerokai ilgiau.
 | 100 000       | 210.984        |
 | 1 000 000     | ??             | -- Užtruko per ilgai
 | 10 000 000     | ??            | -- Užtruko per ilgai
+
+https://prnt.sc/TQfSkokNC5Fm
 
 
 ## List skirstymas
@@ -187,8 +191,29 @@ https://prnt.sc/HyYIXIkFZfGb
 
 ## 3 Strategija
 
-## Vector 
+## Vector skirstymas (buvo pasiimtas 1 strategijos budas ir panaudotas copy_if)
 
+| Įrašų skaičius | Skirstymas (s) |
+|---------------|----------------|
+| 1 000         | 0.0002801      |
+| 10 000        | 0.0029163      |
+| 100 000       | 0.0312289      |
+| 1 000 000     | 0.377198       |
+| 10 000 000    | 4.07662        |
+
+https://prnt.sc/6bhs9RWqRGFk
+
+## Deque skirstymas (buvo pasiimtas 1 strategijos budas ir panaudotas copy_if)
+
+| Įrašų skaičius | Skirstymas (s) |
+|---------------|----------------|
+| 1 000         | 0.0002588      |
+| 10 000        | 0.0021332      |
+| 100 000       | 0.0257383      |
+| 1 000 000     | 0.312913       |
+| 10 000 000    | 3.57977        |
+
+https://prnt.sc/LxD3_dhFPzLT
 
 ## List skirstymas (buvo pasiimtas 1 strategijos būdas ir panaudotas copy_if)
 
