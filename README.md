@@ -154,6 +154,13 @@ Vector ir deque skirsto panašiai, o list užtrunka gerokai ilgiau.
 
 ## Vector skirstymas
 
+| Įrašų skaičius | Skirstymas (s) |
+|---------------|----------------|
+| 1 000         | 0.0124654      |
+| 10 000        | 1.28622        |
+| 100 000       | 132.325        |
+| 1 000 000     | ??             | -- Užtruko per ilgai
+| 10 000 000     | ??            | -- Užtruko per ilgai
 
 
 ## List skirstymas

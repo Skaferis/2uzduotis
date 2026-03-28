@@ -212,7 +212,7 @@ int skaitymas() {
     ifstream failas(failoPavadinimas+".txt");
     std::deque<Studentas> grupe;
     std::deque<Studentas> vargsiukai;
-    std::deque<Studentas> galvociai;
+//    std::deque<Studentas> galvociai;
 
     try {
         if (!failas.is_open()) {
@@ -313,12 +313,12 @@ int skaitymas() {
 
     auto rusiavimoPabaiga = std::chrono::high_resolution_clock::now();
     auto skirstymoPradzia = std::chrono::high_resolution_clock::now();
-    for (Studentas& o : grupe) {
-        if (o.rez < 5) {
-            vargsiukai.push_back(o);
-        }
-        else {
-            galvociai.push_back(o);
+    for (auto it = grupe.begin(); it != grupe.end(); ) {
+        if (it->rez < 5.0) {
+            vargsiukai.push_back(*it);
+            it = grupe.erase(it);
+        } else {
+            ++it;
         }
     }
     auto skirstymoPabaiga = std::chrono::high_resolution_clock::now();
@@ -341,7 +341,7 @@ int skaitymas() {
 
     galv << string(66, '-') << "\n";
 
-    for (const Studentas& s : galvociai) {
+    for (const Studentas& s : grupe) {
 
         galv << left
             << std::setw(15) << s.vardas
