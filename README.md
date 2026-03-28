@@ -59,7 +59,7 @@ Failų generavimas taip pat tampa žymiai lėtesnis su labai dideliais duomenų 
 
 Programa kompiliuojama:
 
-g++ -O2 main.cpp skaiciavimai.cpp ivestis.cpp isvestis.cpp generavimas.cpp -o programa
+g++ main_(vector/deque/list).cpp skaiciavimai.cpp ivestis.cpp isvestis.cpp generavimas.cpp -o programa
 
 Paleidimas:
 
@@ -226,3 +226,30 @@ https://prnt.sc/LxD3_dhFPzLT
 | 10 000 000    | 10.5409        |
 
 https://prnt.sc/sVjqs_UKpsWK
+
+## v.pradine release 
+
+Sukurtas ir padarytas initial realese.
+
+## v0.1
+
+Studentų duomenų apdorojimo programa su vidurkio/medianos skaičiavimu, realizuota naudojant std::vector, su atsitiktinių duomenų generavimu.
+
+## v0.2
+
+Pridėtas duomenų nuskaitymas iš failo, studentų rūšiavimas pagal pasirinktus kriterijus ir testavimas su dideliais duomenų failais.
+
+## v0.3
+
+Atliktas programos refaktorizavimas: kodas išskaidytas į kelis `.cpp` ir `.h` failus, panaudotos struktūros bei pridėtas minimalus išimčių valdymas duomenų ir failų tikrinimui.
+
+
+## v0.4
+
+Pridėtas studentų failų generatorius, realizuotas studentų skirstymas į dvi grupes, rezultatų išvedimas į atskirus failus ir atlikta programos spartos analizė su skirtingo dydžio duomenų failais.
+
+
+## v1.0
+
+Atliktas std::vector, std::list ir std::deque konteinerių našumo tyrimas, palygintos studentų skirstymo strategijos.
+
