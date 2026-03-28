@@ -151,3 +151,33 @@ Atlikus testavimus su skirtingais konteineriais (std::vector, std::deque, std::l
 Vector ir deque skirsto panašiai, o list užtrunka gerokai ilgiau.
 
 ## 2 Strategija
+
+## Vector skirstymas
+
+
+
+## List skirstymas
+
+| Įrašų skaičius | Skirstymas (s) |
+|---------------|----------------|
+| 1 000         | 0.0003278      |
+| 10 000        | 0.0031034      |
+| 100 000       | 0.0465449      |
+| 1 000 000     | 0.530851       |
+| 10 000 000    | 6.45129        |
+
+https://prnt.sc/HyYIXIkFZfGb
+
+## 3 Strategija
+
+## List skirstymas (buvo pasiimtas 1 strategijos būdas ir panaudotas copy_if)
+
+| Įrašų skaičius | Skirstymas (s) |
+|---------------|----------------|
+| 1 000         | 0.00067        |
+| 10 000        | 0.0063254      |
+| 100 000       | 0.11172        |
+| 1 000 000     | 0.904371       |
+| 10 000 000    | 10.5409        |
+
+https://prnt.sc/sVjqs_UKpsWK

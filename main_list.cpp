@@ -3,6 +3,7 @@
 #include <vector>
 #include <iomanip>
 #include <algorithm>
+#include <iterator>
 #include <cstdlib>
 #include <ctime>
 #include <utility>
@@ -213,7 +214,7 @@ int skaitymas() {
     ifstream failas(failoPavadinimas+".txt");
     std::list<Studentas> grupe;
     std::list<Studentas> vargsiukai;
-//    std::list<Studentas> galvociai;
+    std::list<Studentas> galvociai;
 
     try {
         if (!failas.is_open()) {
@@ -310,14 +311,11 @@ int skaitymas() {
 
     auto rusiavimoPabaiga = std::chrono::high_resolution_clock::now();
     auto skirstymoPradzia = std::chrono::high_resolution_clock::now();
-    for (auto it = grupe.begin(); it != grupe.end(); ) {
-        if (it->rez < 5.0) {
-            vargsiukai.push_back(*it);
-            it = grupe.erase(it);
-        } else {
-            ++it;
-        }
-    }
+    std::copy_if(grupe.begin(), grupe.end(), std::back_inserter(vargsiukai),
+        [](const Studentas& s) { return s.rez < 5.0; });
+
+    std::copy_if(grupe.begin(), grupe.end(), std::back_inserter(galvociai),
+        [](const Studentas& s) { return s.rez >= 5.0; });
     auto skirstymoPabaiga = std::chrono::high_resolution_clock::now();
 
     auto galvPradzia = std::chrono::high_resolution_clock::now();
@@ -338,7 +336,7 @@ int skaitymas() {
 
     galv << string(66, '-') << "\n";
 
-    for (const Studentas& s : grupe) {
+    for (const Studentas& s : galvociai) {
 
         galv << left
             << std::setw(15) << s.vardas
