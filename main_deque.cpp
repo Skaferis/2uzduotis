@@ -401,20 +401,20 @@ int skaitymas() {
     cout << failoPavadinimas << " irasu dalijimo i dvi grupes laikas: "
         << skirstymoLaikas.count() << endl;
 
-    cout << failoPavadinimas << " galvociu irasymo i faila laikas: "
+/*    cout << failoPavadinimas << " galvociu irasymo i faila laikas: "
         << galvLaikas.count() << endl;
 
     cout << failoPavadinimas << " vargsiuku irasymo i faila laikas: "
         << vargLaikas.count() << endl;
 
     cout << failoPavadinimas << " bendras testo laikas: "
-        << visoLaikas.count() << endl;
+        << visoLaikas.count() << endl;*/
 
     return 0;
 }
 
 int main() {
-
+/*
     int pasirinkti;
 
     while (true) {
@@ -452,6 +452,6 @@ int main() {
     else {
         cout << "Neteisingas pasirinkimas.\n";
         return 0;
-    }
+    }*/ return skaitymas();
 
 }

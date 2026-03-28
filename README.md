@@ -71,47 +71,9 @@ https://prnt.sc/XKvfu3bsZgqw
 
 https://prnt.sc/0OaFDSNmRW8w
 
+## Konteinerių testavimas
 
-## Konteinerių testavimas (std::deque)
+## Visi konteineriai buvo tikrinami tais pačiais programos sugeneruotais failais ir buvo įvertintas jų darbo laikas.
 
-Testavimas atliktas naudojant std::deque<Studentas> konteinerį.
-Kiekvienam studentui generuoti 3 namų darbų pažymiai (ND = 3).
+## Vector
 
-Testavimo sąlygos
-Duomenys generuojami automatiškai
-Failų dydžiai:
-1 000
-10 000
-100 000
-1 000 000
-10 000 000 įrašų
-Matavimo vienetas: sekundės (s)
-
-## Failų generavimo rezultatai (deque)
-
-Įrašų skaičius	Generavimo laikas (s)
-1 000	0.0038479
-10 000	0.023823
-100 000	0.152425
-1 000 000	1.77747
-10 000 000	17.921
-
-https://prnt.sc/ZWr38R4w3tD7
-
-## Duomenų nuskaitymo, rūšiavimo ir skirstymo testavimas (std::deque)
-
-Testavimas atliktas naudojant std::deque<Studentas> konteinerį.
-Kiekvienam studentui generuoti 3 namų darbų pažymiai (ND = 3).
-Studentai rūšiuojami pagal galutinį rezultatą.
-
-## Testavimo sąlygos
-
-Tie patys duomenų failai visiems testams
-Matavimo vienetas: sekundės (s)
-Matavimo etapai:
-failo nuskaitymas
-studentų rūšiavimas
-studentų skirstymas į dvi grupes
-rezultatų įrašymas į failus
-
-https://prnt.sc/y5ApvK7aMCB1

@@ -4,4 +4,4 @@
 #include <list>
 #include "studentas.h"
 
-void spausdinti(const std::list<Studentas>& grupe, bool rodytiMediana);
+void spausdinti(const std::vector<Studentas>& grupe, bool rodytiMediana);
