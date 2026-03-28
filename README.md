@@ -113,8 +113,41 @@ https://prnt.sc/YI2qr-p5Lctg
 
 ## Rezultatai
 
-Atlikus testavimus su skirtingais konteineriais (std::vector, std::deque, std::list) pastebėta, kad bendras programos našumas labiausiai priklauso nuo naudojamo konteinerio tipo. 
+Atlikus testavimus su skirtingais konteineriais (std::vector, std::deque, std::list) pastebėta, kad bendras programos našumas labiausiai priklauso nuo naudojamo konteinerio tipo. std::vector pasižymėjo geriausiu bendru veikimo laiku, ypač rūšiavimo operacijoje, std::deque rezultatai buvo labai panašūs į vector, tačiau šiek tiek lėtesni rūšiavime. std::list kai kuriais atvejais parodė geresnius rezultatus rūšiavimo metu, tačiau bendras veikimo laikas buvo didesnis.
 
-std::vector pasižymėjo geriausiu bendru veikimo laiku, ypač rūšiavimo operacijoje, std::deque rezultatai buvo labai panašūs į vector, tačiau šiek tiek lėtesni rūšiavime.
+## 1 Strategija
 
-std::list kai kuriais atvejais parodė geresnius rezultatus rūšiavimo metu, tačiau bendras veikimo laikas buvo didesnis dėl lėtesnio duomenų nuskaitymo ir prastesnio atminties panaudojimo.
+## Vector skirstymas
+
+| Įrašų skaičius  | Skirstymas (s) |
+| 1 000          | 0.00057        |
+| 10 000         | 0.0048795      |
+| 100 000        | 0.0530411      |
+| 1 000 000      | 0.56462        |
+| 10 000 000     | 4.14701        |
+
+## Deque skirstymas
+
+| Įrašų skaičius | Skirstymas (s) |
+|---------------|----------------|
+| 1 000         | 0.0002988      |
+| 10 000        | 0.0032776      |
+| 100 000       | 0.0424128      |
+| 1 000 000     | 0.604689       |
+| 10 000 000    | 3.99703        |
+
+## List skirstymas
+
+| Įrašų skaičius | Skirstymas (s) |
+|---------------|----------------|
+| 1 000         | 0.0005889      |
+| 10 000        | 0.0073089      |
+| 100 000       | 0.092111       |
+| 1 000 000     | 0.926026       |
+| 10 000 000    | 8.03509        |
+
+## Rezultatai
+
+Vector ir deque skirsto panašiai, o list užtrunka gerokai ilgiau.
+
+## 2 Strategija
