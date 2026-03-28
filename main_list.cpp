@@ -286,28 +286,24 @@ int skaitymas() {
     auto rusiavimoPradzia = std::chrono::high_resolution_clock::now();
 
     if (r == 1) {
-        sort(grupe.begin(), grupe.end(),
-            [](const Studentas& a, const Studentas& b) {
-                return a.vardas < b.vardas;
-            });
+        grupe.sort([](const Studentas& a, const Studentas& b) {
+            return a.vardas < b.vardas;
+        });
     }
     else if (r == 2) {
-        sort(grupe.begin(), grupe.end(),
-            [](const Studentas& a, const Studentas& b) {
-                return a.pavarde < b.pavarde;
-            });
+        grupe.sort([](const Studentas& a, const Studentas& b) {
+            return a.pavarde < b.pavarde;
+        });
     }
     else if (r == 3) {
-        sort(grupe.begin(), grupe.end(),
-            [](const Studentas& a, const Studentas& b) {
-                return a.rez > b.rez; // galutinis (vid.)
-            });
+        grupe.sort([](const Studentas& a, const Studentas& b) {
+            return a.rez > b.rez; // galutinis (vid.)
+        });
     }
     else if (r == 4) {
-        sort(grupe.begin(), grupe.end(),
-            [](const Studentas& a, const Studentas& b) {
-                return a.med > b.med; // galutinis (med.)
-            });
+        grupe.sort([](const Studentas& a, const Studentas& b) {
+            return a.med > b.med; // galutinis (med.)
+        });
     }
 
     auto rusiavimoPabaiga = std::chrono::high_resolution_clock::now();
