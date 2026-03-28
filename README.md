@@ -73,7 +73,8 @@ https://prnt.sc/0OaFDSNmRW8w
 
 ## Konteinerių testavimas
 
-## Visi konteineriai buvo tikrinami tais pačiais programos sugeneruotais failais ir buvo įvertintas jų darbo laikas.
+## Visi konteineriai buvo tikrinami tais pačiais programos sugeneruotais failais ir rušiuoji pagal vidurkį, ir buvo įvertintas jų darbo laikas.
 
 ## Vector
+
 
