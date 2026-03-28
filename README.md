@@ -162,6 +162,16 @@ Vector ir deque skirsto panašiai, o list užtrunka gerokai ilgiau.
 | 1 000 000     | ??             | -- Užtruko per ilgai
 | 10 000 000     | ??            | -- Užtruko per ilgai
 
+# Deque skirtstymas
+
+| Įrašų skaičius | Skirstymas (s) |
+|---------------|----------------|
+| 1 000         | 0.0208023      |
+| 10 000        | 1.94427        |
+| 100 000       | 210.984        |
+| 1 000 000     | ??             | -- Užtruko per ilgai
+| 10 000 000     | ??            | -- Užtruko per ilgai
+
 
 ## List skirstymas
 
@@ -176,6 +186,9 @@ Vector ir deque skirsto panašiai, o list užtrunka gerokai ilgiau.
 https://prnt.sc/HyYIXIkFZfGb
 
 ## 3 Strategija
+
+## Vector 
+
 
 ## List skirstymas (buvo pasiimtas 1 strategijos būdas ir panaudotas copy_if)
 
