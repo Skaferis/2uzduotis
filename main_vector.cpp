@@ -318,7 +318,7 @@ int skaitymas() {
     auto rusiavimoPabaiga = std::chrono::high_resolution_clock::now();
     auto skirstymoPradzia = std::chrono::high_resolution_clock::now();
     for (Studentas& o : grupe) {
-        if (o.rez < 5) {
+        if (o.rez() < 5) {
             vargsiukai.push_back(o);
         }
         else {
