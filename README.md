@@ -289,3 +289,25 @@ https://prnt.sc/xUvOjmogTLny
 
 https://prnt.sc/2Wn2nqr0MBxP
 
+
+## Optimizavimo flagų palyginimas
+
+### Failas: studentai1000000.txt
+
+| Flag | Bendras laikas (s) | EXE dydis (KB) |
+|------|--------------------|----------------|
+| O1   | 8.6348             | 246.79         |
+| O2   | 7.60203            | 239.42         |
+| O3   | 7.90414            | 260.7          |
+
+https://prnt.sc/_SvENR5k_TZ8
+
+### Failas: studentai100000.txt
+
+| Flag | Bendras laikas (s) | EXE dydis (KB) |
+|------|--------------------|----------------|
+| O1   | 1.70314            | 246.79         |
+| O2   | 2.12781            | 239.42         |
+| O3   | 1.5851             | 260.7          |
+
+https://prnt.sc/adRonQMFNraW
