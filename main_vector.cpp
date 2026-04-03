@@ -31,12 +31,9 @@ using std::stringstream;
 using std::ofstream;
 
 int ranka() {
-    int stud;
     vector<Studentas> grupe;
 
-    stud = ivestiSveika("Kiek studentu grupeje? ");
-
-    for (int ii = 0; ii < stud; ii++) {
+    while (true) {
         Studentas A;          // naujas studentas kiekvieną kartą
         int sum = 0;
 
@@ -52,31 +49,50 @@ int ranka() {
         A.setVardas(vardas);
         A.setPavarde(pavarde);
 
-        int n, temp;
+        int temp;
+        int n = 0;
 
-        n = ivestiSveika("Kiek bus pazymiu? ");
+        cout << "Iveskite ND pazymius po viena. (Norint baigti - -1): ";
 
-        cout << "Iveskite pazymius: ";
-        
-        for (int i = 0; i < n; i++) {
+        while (true) {
             cin >> temp;
+
             while (cin.fail()) {
-                cout << "Iveskite pazymius, iveskite skaiciu: ";
+                cout << "Klaida. Iveskite skaiciu: ";
                 cin.clear();
                 cin.ignore(1000, '\n');
                 cin >> temp;
             }
+
+            if (temp == -1) {
+                break;
+            }
+
+            if (temp < 1 || temp > 10) {
+                cout << "Pazymys turi buti nuo 1 iki 10. Bandykite dar karta.\n";
+                continue;
+            }
+
             A.addPaz(temp);
             sum += temp;
+            n++;
         }
 
-        A.setMed(skaiciuotiMediana(A.paz()));
-        
         A.setExam(ivestiSveika("Iveskite egzamino paz: "));
 
         A.setRez(skaiciuotiGalutini(sum, n, A.exam()));
+        A.setMed(skaiciuotiGalutiniMed(A.paz(), A.exam()));
 
         grupe.push_back(A);   // tik čia dedam į grupę
+
+        char testi;
+        cout << "Ar norite ivesti dar viena studenta? (t/n): ";
+        cin >> testi;
+
+        if (testi == 'n' || testi == 'N') {
+            break;
+        }
+
     }
 
     cout << "Ka norite matyti (1 - vidurkis, 2 - mediana)? ";
@@ -175,11 +191,10 @@ int automatiskai() {
             sum += temp;
         }
 
-        A.setMed(skaiciuotiMediana(A.paz()));
-
-       A.setExam(dist10(gen)); // atsitiktinis egzamino pažymys nuo 1 iki 10
+        A.setExam(dist10(gen));
 
         A.setRez(skaiciuotiGalutini(sum, n, A.exam()));
+        A.setMed(skaiciuotiGalutiniMed(A.paz(), A.exam()));
 
         grupe.push_back(A);   // čia dedam į grupę
     }
@@ -264,7 +279,7 @@ int skaitymas() {
         A.setExam(exam);
 
         A.setRez(skaiciuotiGalutini(sum, stulpsk, A.exam()));
-        A.setMed(skaiciuotiMediana(A.paz()));
+        A.setMed(skaiciuotiGalutiniMed(A.paz(), A.exam()));
 
         grupe.push_back(A);
 

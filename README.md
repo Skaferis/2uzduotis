@@ -267,3 +267,25 @@ g++ main_list.cpp skaiciavimai.cpp ivestis.cpp isvesti.cpp generavimas.cpp -o li
 ./list.exe
 
 ## Svarbu: norint kompiliuoti deque ar list failą, privalote pakeisti konteinerio tipą į atitinkamą isvestis.h ir isvesti.cpp failuose!!!
+
+
+## Class ir Struct palyginimas
+
+## Struct
+
+| Įrašų skaičius | Nuskaitymas (s) | Rūšiavimas (s) | Skirstymas (s) |
+| -------------- | --------------- | -------------- | -------------- |
+| 1 000 000      | 2.83759         | 2.39984        | 0.56462        |
+| 10 000 000     | 25.4285         | 22.1732        | 4.14701        |
+
+https://prnt.sc/xUvOjmogTLny
+
+## Class
+
+| Įrašų skaičius | Nuskaitymas (s) | Rūšiavimas (s) | Skirstymas (s) |
+| -------------- | --------------- | -------------- | -------------- |
+| 1 000 000      | 4.43761         | 6.83953        | 1.01807        |
+| 10 000 000     | 54.1757         | 91.1667        | 9.09333        |
+
+https://prnt.sc/2Wn2nqr0MBxP
+

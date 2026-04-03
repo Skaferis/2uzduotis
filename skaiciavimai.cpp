@@ -29,3 +29,8 @@ double skaiciuotiGalutini(int suma, int kiekis, int egzaminas) {
         return egzaminas * 0.6;
     }
 }
+
+double skaiciuotiGalutiniMed(std::vector<int> paz, int egzaminas) {
+    double mediana = skaiciuotiMediana(paz);
+    return mediana * 0.4 + egzaminas * 0.6;
+}
