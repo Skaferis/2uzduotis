@@ -41,12 +41,16 @@ int ranka() {
         int sum = 0;
 
         cout << "Iveskite varda ir pavarde: ";
-        cin >> A.vardas >> A.pavarde;
+        string vardas, pavarde;
+        cin >> vardas >> pavarde;
 
-        while (!arTikRaides(A.vardas) || !arTikRaides(A.pavarde)) {
+        while (!arTikRaides(vardas) || !arTikRaides(pavarde)) {
             cout << "Bloga ivestis. Iveskite TIK RAIDES (vardas pavarde): ";
-            cin >> A.vardas >> A.pavarde;
+            cin >> vardas >> pavarde;
         }
+
+        A.setVardas(vardas);
+        A.setPavarde(pavarde);
 
         int n, temp;
 
@@ -62,15 +66,15 @@ int ranka() {
                 cin.ignore(1000, '\n');
                 cin >> temp;
             }
-            A.paz.push_back(temp);
+            A.addPaz(temp);
             sum += temp;
         }
 
-        A.med = skaiciuotiMediana(A.paz);
+        A.setMed(skaiciuotiMediana(A.paz()));
         
-        A.exam = ivestiSveika("Iveskite egzamino paz: ");
+        A.setExam(ivestiSveika("Iveskite egzamino paz: "));
 
-        A.rez = skaiciuotiGalutini(sum, n, A.exam);
+        A.setRez(skaiciuotiGalutini(sum, n, A.exam()));
 
         grupe.push_back(A);   // tik čia dedam į grupę
     }
