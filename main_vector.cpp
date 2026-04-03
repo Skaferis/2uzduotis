@@ -259,6 +259,7 @@ int skaitymas() {
         } 
 
 //        cout << sum;
+        int exam;
         studentas >> exam;
         A.setExam(exam);
 
@@ -348,11 +349,11 @@ int skaitymas() {
     for (const Studentas& s : galvociai) {
 
         galv << left
-            << std::setw(15) << s.vardas
-            << std::setw(15) << s.pavarde
+            << std::setw(15) << s.vardas()
+            << std::setw(15) << s.pavarde()
             << std::fixed << std::setprecision(2)
-            << std::setw(18) << s.rez
-            << std::setw(18) << s.med
+            << std::setw(18) << s.rez()
+            << std::setw(18) << s.med()
             << "\n";
     }
 
@@ -379,11 +380,11 @@ int skaitymas() {
     for (const Studentas& s : vargsiukai) {
 
         varg << left
-            << std::setw(15) << s.vardas
-            << std::setw(15) << s.pavarde
+            << std::setw(15) << s.vardas()
+            << std::setw(15) << s.pavarde()
             << std::fixed << std::setprecision(2)
-            << std::setw(18) << s.rez
-            << std::setw(18) << s.med
+            << std::setw(18) << s.rez()
+            << std::setw(18) << s.med()
             << "\n";
     }
 
