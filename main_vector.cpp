@@ -293,25 +293,25 @@ int skaitymas() {
     if (r == 1) {
         sort(grupe.begin(), grupe.end(),
             [](const Studentas& a, const Studentas& b) {
-                return a.vardas < b.vardas;
+                return a.vardas() < b.vardas();
             });
     }
     else if (r == 2) {
         sort(grupe.begin(), grupe.end(),
             [](const Studentas& a, const Studentas& b) {
-                return a.pavarde < b.pavarde;
+                return a.pavarde() < b.pavarde();
             });
     }
     else if (r == 3) {
         sort(grupe.begin(), grupe.end(),
             [](const Studentas& a, const Studentas& b) {
-                return a.rez > b.rez; // galutinis (vid.)
+                return a.rez() > b.rez(); // galutinis (vid.)
             });
     }
     else if (r == 4) {
         sort(grupe.begin(), grupe.end(),
             [](const Studentas& a, const Studentas& b) {
-                return a.med > b.med; // galutinis (med.)
+                return a.med() > b.med(); // galutinis (med.)
             });
     }
 
