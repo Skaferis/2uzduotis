@@ -244,23 +244,26 @@ int skaitymas() {
     while (getline(failas, eilute)) {
         stringstream studentas(eilute);
         Studentas A;
-        studentas >> A.vardas >> A.pavarde;
+        string vardas, pavarde;
+        studentas >> vardas >> pavarde;
+        A.setVardas(vardas);
+        A.setPavarde(pavarde);
 
         sum = 0;
         for (int i = 0; i < stulpsk; i++) {
             int paz;
             studentas >> paz;
-            A.paz.push_back(paz);
+            A.addPaz(paz);
             sum += paz;
 //            cout << "(" << i+1 << ") " << paz << " ";
         } 
 
 //        cout << sum;
-        studentas >> A.exam;
+        studentas >> exam;
+        A.setExam(exam);
 
-        A.rez = skaiciuotiGalutini(sum, stulpsk, A.exam);
-
-        A.med = skaiciuotiMediana(A.paz);
+        A.setRez(skaiciuotiGalutini(sum, stulpsk, A.exam()));
+        A.setMed(skaiciuotiMediana(A.paz()));
 
         grupe.push_back(A);
 
