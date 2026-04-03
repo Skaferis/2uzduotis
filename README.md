@@ -311,3 +311,5 @@ https://prnt.sc/_SvENR5k_TZ8
 | O3   | 1.5851             | 260.7          |
 
 https://prnt.sc/adRonQMFNraW
+
+Pastaba: optimizavimo flagų poveikis priklauso nuo konkretaus duomenų kiekio ir programos realizacijos, todėl skirtingiems failų dydžiams greičiausias variantas gali skirtis.
