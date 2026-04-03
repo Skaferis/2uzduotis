@@ -166,20 +166,20 @@ int automatiskai() {
         int temp;
         int n = dist10(gen); // atsitiktinis pažymių skaičius nuo 1 iki 10
 
-        A.vardas  = studentai[ii].vardas;
-        A.pavarde = studentai[ii].pavarde;
+        A.setVardas(studentai[ii].vardas);
+        A.setPavarde(studentai[ii].pavarde);
         
         for (int i = 0; i < n; i++) {
             temp = dist10(gen); // atsitiktinis pažymys nuo 1 iki 10
-            A.paz.push_back(temp);
+            A.addPaz(temp);
             sum += temp;
         }
 
-        A.med = skaiciuotiMediana(A.paz);
+        A.setMed(skaiciuotiMediana(A.paz()));
 
-        A.exam = dist10(gen); // atsitiktinis egzamino pažymys nuo 1 iki 10
+       A.setExam(dist10(gen)); // atsitiktinis egzamino pažymys nuo 1 iki 10
 
-        A.rez = skaiciuotiGalutini(sum, n, A.exam);
+        A.setRez(skaiciuotiGalutini(sum, n, A.exam()));
 
         grupe.push_back(A);   // čia dedam į grupę
     }
