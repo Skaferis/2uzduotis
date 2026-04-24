@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
 
 class Studentas {
 private:
@@ -19,6 +20,12 @@ public:
     Studentas(const std::string& vardas, const std::string& pavarde,
               const std::vector<int>& paz, int exam,
               double rez = 0.0, double med = 0.0);
+
+    Studentas(const Studentas& other);
+    Studentas(Studentas&& other) noexcept;
+    Studentas& operator=(const Studentas& other);
+    Studentas& operator=(Studentas&& other) noexcept;
+
     ~Studentas();
 
     // getteriai
@@ -37,6 +44,9 @@ public:
     void setMed(double med);
     void addPaz(int paz);
     void clearPaz();
+
+    friend std::istream& operator>>(std::istream& in, Studentas& s);
+    friend std::ostream& operator<<(std::ostream& out, const Studentas& s);
 };
 
 struct Asmuo {
