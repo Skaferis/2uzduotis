@@ -353,3 +353,13 @@ Pastaba: optimizavimo flagų poveikis priklauso nuo konkretaus duomenų kiekio i
 | `operator<<` | Leidžia išvesti studento duomenis į išvesties srautą |
 
 https://prnt.sc/bo7Rt40WibG4
+
+## v1.5
+
+Šioje versijoje programa išplėsta panaudojant paveldėjimą ir abstrakčias klases.
+
+### Abstrakti klasė Zmogus
+
+Sukurta bazinė klasė `Zmogus`, skirta bendrai aprašyti žmogų. Ši klasė yra abstrakti. 
+
+https://prnt.sc/4RWDRDKIl90Z
