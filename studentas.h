@@ -4,29 +4,29 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include "zmogus.h"
 
-class Studentas {
+class Studentas : public Zmogus {
 private:
-    std::string vardas_;
-    std::string pavarde_;
     std::vector<int> paz_;
     int exam_;
     double rez_;
     double med_;
 
 public:
-    // konstruktoriai / destruktorius
     Studentas();
     Studentas(const std::string& vardas, const std::string& pavarde,
               const std::vector<int>& paz, int exam,
               double rez = 0.0, double med = 0.0);
 
+    // Rule of Five lieka
     Studentas(const Studentas& other);
     Studentas(Studentas&& other) noexcept;
     Studentas& operator=(const Studentas& other);
     Studentas& operator=(Studentas&& other) noexcept;
-
     ~Studentas();
+
+    void print() const override;
 
     // getteriai
     std::string vardas() const;
