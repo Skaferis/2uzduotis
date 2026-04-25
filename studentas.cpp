@@ -3,12 +3,12 @@
 #include <iostream>
 
 Studentas::Studentas()
-    : vardas_("Vardenis"), pavarde_("Pavardenis"), exam_(0), rez_(0.0), med_(0.0) {}
+    : Zmogus("Vardenis", "Pavardenis"), exam_(0), rez_(0.0), med_(0.0) {}
 
 Studentas::Studentas(const std::string& vardas, const std::string& pavarde,
                      const std::vector<int>& paz, int exam,
                      double rez, double med)
-    : vardas_(vardas), pavarde_(pavarde), paz_(paz), exam_(exam), rez_(rez), med_(med) {}
+    : Zmogus(vardas, pavarde), paz_(paz), exam_(exam), rez_(rez), med_(med) {}
 
 // COPY constructor
 Studentas::Studentas(const Studentas& other)
