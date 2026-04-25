@@ -12,8 +12,7 @@ Studentas::Studentas(const std::string& vardas, const std::string& pavarde,
 
 // COPY constructor
 Studentas::Studentas(const Studentas& other)
-    : vardas_(other.vardas_),
-      pavarde_(other.pavarde_),
+    : Zmogus(other.vardas_, other.pavarde_),
       paz_(other.paz_),
       exam_(other.exam_),
       rez_(other.rez_),
@@ -21,8 +20,7 @@ Studentas::Studentas(const Studentas& other)
 
 // MOVE constructor
 Studentas::Studentas(Studentas&& other) noexcept
-    : vardas_(std::move(other.vardas_)),
-      pavarde_(std::move(other.pavarde_)),
+    : Zmogus(std::move(other.vardas_), std::move(other.pavarde_)),
       paz_(std::move(other.paz_)),
       exam_(other.exam_),
       rez_(other.rez_),
@@ -78,6 +76,10 @@ double Studentas::rez() const {
 
 double Studentas::med() const {
     return med_;
+}
+
+void Studentas::print() const {
+    std::cout << *this << std::endl;
 }
 
 void Studentas::setVardas(const std::string& vardas) {
