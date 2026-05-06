@@ -3,6 +3,11 @@
 
 #include <string>
 
+/**
+ * @class Zmogus
+ * @brief Abstrakti bazinė žmogaus klasė.
+ */
+
 class Zmogus {
 protected:
     std::string vardas_;
@@ -19,7 +24,9 @@ public:
     std::string vardas() const { return vardas_; }
     std::string pavarde() const { return pavarde_; }
 
-    // GRYNAS VIRTUALUS METODAS → padaro klasę abstrakčia
+    /**
+     * @brief Gryna virtuali spausdinimo funkcija.
+     */
     virtual void print() const = 0;
 };
 
