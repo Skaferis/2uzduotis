@@ -254,7 +254,7 @@ Norint sukompiliuoti programos versijas:
 ```bash
 make vector
 make deque
-main list
+make list
 
 ## Kompiliuoti terminale:
 
@@ -363,3 +363,7 @@ https://prnt.sc/bo7Rt40WibG4
 Sukurta bazinė klasė `Zmogus`, skirta bendrai aprašyti žmogų. Ši klasė yra abstrakti. 
 
 https://prnt.sc/4RWDRDKIl90Z
+
+## v2.0
+
+Šioje versijoje pridėta Doxygen dokumentacija, HTML ir LaTeX katalogai, sukompiliuotas refman.pdf failas bei realizuoti unit testai su assert.
