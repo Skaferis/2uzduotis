@@ -6,6 +6,14 @@
 #include <iostream>
 #include "zmogus.h"
 
+/**
+ * @class Studentas
+ * @brief Studento duomenų saugojimo ir apdorojimo klasė.
+ *
+ * Klasė paveldi abstrakčią klasę Zmogus.
+ * Realizuota Rule of Five.
+ */
+
 class Studentas : public Zmogus {
 private:
     std::vector<int> paz_;
@@ -19,13 +27,26 @@ public:
               const std::vector<int>& paz, int exam,
               double rez = 0.0, double med = 0.0);
 
-    // Rule of Five lieka
+    /**
+     * @brief Kopijavimo konstruktorius.
+     * @param other Kitas Studentas objektas.
+     */
     Studentas(const Studentas& other);
+    /**
+     * @brief Perkėlimo konstruktorius.
+     * @param other Perkeliamas objektas.
+     */
     Studentas(Studentas&& other) noexcept;
     Studentas& operator=(const Studentas& other);
     Studentas& operator=(Studentas&& other) noexcept;
+    /**
+     * @brief Studento destruktorius.
+     */
     ~Studentas();
 
+    /**
+     * @brief Išveda studento informaciją.
+     */
     void print() const override;
 
     // getteriai
