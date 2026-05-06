@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -std=c++17 -O2 -Wall
 
-COMMON = skaiciavimai.cpp ivestis.cpp isvesti.cpp generavimas.cpp
+COMMON = studentas.cpp skaiciavimai.cpp ivestis.cpp isvesti.cpp generavimas.cpp
 
 all: vector deque list
 
