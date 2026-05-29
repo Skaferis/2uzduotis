@@ -242,6 +242,63 @@ public:
         new (data_ + size_) T(std::move(value));
         ++size_;
     }
+
+    void pop_back() {
+        if (size_ > 0) {
+            --size_;
+            data_[size_].~T();
+        }
+    }
+
+    void resize(size_type new_size) {
+        if (new_size < size_) {
+            for (size_type i = new_size; i < size_; ++i) {
+                data_[i].~T();
+            }
+            size_ = new_size;
+        } else if (new_size > size_) {
+            reserve(new_size);
+            size_type constructed = size_;
+
+            try {
+                for (; constructed < new_size; ++constructed) {
+                    new (data_ + constructed) T();
+                }
+            } catch (...) {
+                for (size_type i = size_; i < constructed; ++i) {
+                    data_[i].~T();
+                }
+                throw;
+            }
+
+            size_ = new_size;
+        }
+    }
+
+    void resize(size_type new_size, const T& value) {
+        if (new_size < size_) {
+            for (size_type i = new_size; i < size_; ++i) {
+                data_[i].~T();
+            }
+            size_ = new_size;
+        } else if (new_size > size_) {
+            reserve(new_size);
+            size_type constructed = size_;
+
+            try {
+                for (; constructed < new_size; ++constructed) {
+                    new (data_ + constructed) T(value);
+                }
+            } catch (...) {
+                for (size_type i = size_; i < constructed; ++i) {
+                    data_[i].~T();
+                }
+                throw;
+            }
+
+            size_ = new_size;
+        }
+    }
 };
 
 #endif

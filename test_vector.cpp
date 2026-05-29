@@ -326,6 +326,73 @@ void test_std_sort_with_iterators() {
     assert(v[2] == 30);
 }
 
+
+void test_pop_back() {
+    Vector<int> v;
+    v.push_back(10);
+    v.push_back(20);
+    v.push_back(30);
+
+    const auto old_capacity = v.capacity();
+
+    v.pop_back();
+
+    assert(v.size() == 2);
+    assert(v.capacity() == old_capacity);
+    assert(v.back() == 20);
+
+    v.pop_back();
+    v.pop_back();
+
+    assert(v.size() == 0);
+    assert(v.capacity() == old_capacity);
+    assert(v.empty());
+}
+
+void test_resize_smaller() {
+    Vector<int> v;
+    v.push_back(1);
+    v.push_back(2);
+    v.push_back(3);
+    v.push_back(4);
+
+    const auto old_capacity = v.capacity();
+
+    v.resize(2);
+
+    assert(v.size() == 2);
+    assert(v.capacity() == old_capacity);
+    assert(v[0] == 1);
+    assert(v[1] == 2);
+}
+
+void test_resize_larger_default_values() {
+    Vector<int> v;
+    v.push_back(5);
+    v.push_back(6);
+
+    v.resize(5);
+
+    assert(v.size() == 5);
+    assert(v[0] == 5);
+    assert(v[1] == 6);
+    assert(v[2] == 0);
+    assert(v[3] == 0);
+    assert(v[4] == 0);
+}
+
+void test_resize_larger_with_value() {
+    Vector<std::string> words;
+    words.push_back("vienas");
+
+    words.resize(3, std::string("naujas"));
+
+    assert(words.size() == 3);
+    assert(words[0] == "vienas");
+    assert(words[1] == "naujas");
+    assert(words[2] == "naujas");
+}
+
 int main() {
     test_empty_vector();
     test_clear_empty_vector();
@@ -349,7 +416,12 @@ int main() {
     test_const_iterators();
     test_std_sort_with_iterators();
 
-    std::cout << "7 etapas: iteratoriai veikia." << std::endl;
+    test_pop_back();
+    test_resize_smaller();
+    test_resize_larger_default_values();
+    test_resize_larger_with_value();
+
+    std::cout << "8 etapas: pop_back() ir resize() veikia." << std::endl;
 
     return 0;
 }
