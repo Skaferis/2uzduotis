@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <cassert>
 #include <iostream>
 #include <stdexcept>
@@ -263,6 +264,68 @@ void test_move_assignment() {
     assert(source.data() == nullptr);
 }
 
+
+void test_begin_end_range_for() {
+    Vector<int> v;
+    v.push_back(1);
+    v.push_back(2);
+    v.push_back(3);
+
+    int sum = 0;
+    for (int value : v) {
+        sum += value;
+    }
+
+    assert(sum == 6);
+    assert(v.begin() == v.data());
+    assert(v.end() == v.data() + v.size());
+}
+
+void test_iterators_modify_values() {
+    Vector<int> v;
+    v.push_back(10);
+    v.push_back(20);
+    v.push_back(30);
+
+    for (auto it = v.begin(); it != v.end(); ++it) {
+        *it += 1;
+    }
+
+    assert(v[0] == 11);
+    assert(v[1] == 21);
+    assert(v[2] == 31);
+}
+
+void test_const_iterators() {
+    Vector<int> v;
+    v.push_back(4);
+    v.push_back(5);
+
+    const Vector<int>& const_v = v;
+
+    int sum = 0;
+    for (auto it = const_v.cbegin(); it != const_v.cend(); ++it) {
+        sum += *it;
+    }
+
+    assert(sum == 9);
+    assert(const_v.begin() == const_v.cbegin());
+    assert(const_v.end() == const_v.cend());
+}
+
+void test_std_sort_with_iterators() {
+    Vector<int> v;
+    v.push_back(30);
+    v.push_back(10);
+    v.push_back(20);
+
+    std::sort(v.begin(), v.end());
+
+    assert(v[0] == 10);
+    assert(v[1] == 20);
+    assert(v[2] == 30);
+}
+
 int main() {
     test_empty_vector();
     test_clear_empty_vector();
@@ -281,7 +344,12 @@ int main() {
     test_move_constructor();
     test_move_assignment();
 
-    std::cout << "6 etapas: move konstruktorius ir move assignment veikia." << std::endl;
+    test_begin_end_range_for();
+    test_iterators_modify_values();
+    test_const_iterators();
+    test_std_sort_with_iterators();
+
+    std::cout << "7 etapas: iteratoriai veikia." << std::endl;
 
     return 0;
 }
