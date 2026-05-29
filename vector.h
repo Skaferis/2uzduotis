@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <new>
+#include <stdexcept>
 #include <utility>
 
 // Nuosavas dinaminis konteineris, kuriamas pagal std::vector principą.
@@ -80,6 +81,52 @@ public:
 
     bool empty() const {
         return size_ == 0;
+    }
+
+    reference operator[](size_type index) {
+        return data_[index];
+    }
+
+    const_reference operator[](size_type index) const {
+        return data_[index];
+    }
+
+    reference at(size_type index) {
+        if (index >= size_) {
+            throw std::out_of_range("Vector::at index is out of range");
+        }
+        return data_[index];
+    }
+
+    const_reference at(size_type index) const {
+        if (index >= size_) {
+            throw std::out_of_range("Vector::at index is out of range");
+        }
+        return data_[index];
+    }
+
+    reference front() {
+        return data_[0];
+    }
+
+    const_reference front() const {
+        return data_[0];
+    }
+
+    reference back() {
+        return data_[size_ - 1];
+    }
+
+    const_reference back() const {
+        return data_[size_ - 1];
+    }
+
+    pointer data() {
+        return data_;
+    }
+
+    const_pointer data() const {
+        return data_;
     }
 
     void clear() {
