@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <initializer_list>
+#include <iterator>
 #include <new>
 #include <stdexcept>
 #include <utility>
@@ -18,6 +19,8 @@ public:
     using const_pointer = const value_type*;
     using iterator = value_type*;
     using const_iterator = const value_type*;
+    using reverse_iterator = std::reverse_iterator<iterator>;
+    using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
 private:
     pointer data_;
@@ -283,6 +286,30 @@ public:
 
     const_iterator cend() const {
         return data_ + size_;
+    }
+
+    reverse_iterator rbegin() {
+        return reverse_iterator(end());
+    }
+
+    const_reverse_iterator rbegin() const {
+        return const_reverse_iterator(end());
+    }
+
+    const_reverse_iterator crbegin() const {
+        return const_reverse_iterator(cend());
+    }
+
+    reverse_iterator rend() {
+        return reverse_iterator(begin());
+    }
+
+    const_reverse_iterator rend() const {
+        return const_reverse_iterator(begin());
+    }
+
+    const_reverse_iterator crend() const {
+        return const_reverse_iterator(cbegin());
     }
 
     void clear() {

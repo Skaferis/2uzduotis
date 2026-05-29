@@ -335,6 +335,42 @@ void test_std_sort_with_iterators() {
 }
 
 
+
+void test_reverse_iterators() {
+    Vector<int> v = {1, 2, 3, 4};
+
+    auto it = v.rbegin();
+
+    assert(*it == 4);
+    ++it;
+    assert(*it == 3);
+
+    int sum = 0;
+    for (auto rit = v.rbegin(); rit != v.rend(); ++rit) {
+        sum = sum * 10 + *rit;
+    }
+
+    assert(sum == 4321);
+}
+
+void test_const_reverse_iterators() {
+    const Vector<std::string> words = {"vienas", "du", "trys"};
+
+    auto it = words.crbegin();
+
+    assert(*it == "trys");
+    ++it;
+    assert(*it == "du");
+
+    int count = 0;
+    for (auto rit = words.rbegin(); rit != words.rend(); ++rit) {
+        ++count;
+    }
+
+    assert(count == 3);
+    assert(words.crend() == words.rend());
+}
+
 void test_pop_back() {
     Vector<int> v;
     v.push_back(10);
@@ -839,6 +875,8 @@ int main() {
     test_iterators_modify_values();
     test_const_iterators();
     test_std_sort_with_iterators();
+    test_reverse_iterators();
+    test_const_reverse_iterators();
 
     test_pop_back();
     test_resize_smaller();
@@ -873,7 +911,7 @@ int main() {
     test_shrink_to_fit();
     test_shrink_to_fit_empty_vector();
 
-    std::cout << "15 etapas: insert(count) ir erase(range) veikia." << std::endl;
+    std::cout << "16 etapas: reverse iteratoriai veikia." << std::endl;
 
     return 0;
 }
