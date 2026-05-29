@@ -235,6 +235,25 @@ public:
         destroy_elements();
     }
 
+    void swap(Vector& other) noexcept {
+        std::swap(data_, other.data_);
+        std::swap(size_, other.size_);
+        std::swap(capacity_, other.capacity_);
+    }
+
+    void shrink_to_fit() {
+        if (capacity_ == size_) {
+            return;
+        }
+
+        if (size_ == 0) {
+            deallocate_storage();
+            return;
+        }
+
+        reallocate(size_);
+    }
+
     void reserve(size_type new_capacity) {
         if (new_capacity > capacity_) {
             reallocate(new_capacity);
@@ -479,6 +498,11 @@ bool operator>(const Vector<T>& lhs, const Vector<T>& rhs) {
 template <typename T>
 bool operator>=(const Vector<T>& lhs, const Vector<T>& rhs) {
     return !(lhs < rhs);
+}
+
+template <typename T>
+void swap(Vector<T>& lhs, Vector<T>& rhs) noexcept {
+    lhs.swap(rhs);
 }
 
 #endif

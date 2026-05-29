@@ -584,6 +584,76 @@ void test_comparison_with_strings() {
     assert(b > a);
 }
 
+void test_member_swap() {
+    Vector<int> a = {1, 2, 3};
+    Vector<int> b = {10, 20};
+
+    int* a_data = a.data();
+    int* b_data = b.data();
+    const auto a_capacity = a.capacity();
+    const auto b_capacity = b.capacity();
+
+    a.swap(b);
+
+    assert(a.size() == 2);
+    assert(b.size() == 3);
+    assert(a.data() == b_data);
+    assert(b.data() == a_data);
+    assert(a.capacity() == b_capacity);
+    assert(b.capacity() == a_capacity);
+    assert(a[0] == 10);
+    assert(a[1] == 20);
+    assert(b[0] == 1);
+    assert(b[1] == 2);
+    assert(b[2] == 3);
+}
+
+void test_non_member_swap() {
+    Vector<std::string> a = {"vienas", "du"};
+    Vector<std::string> b = {"trys"};
+
+    swap(a, b);
+
+    assert(a.size() == 1);
+    assert(b.size() == 2);
+    assert(a[0] == "trys");
+    assert(b[0] == "vienas");
+    assert(b[1] == "du");
+}
+
+void test_shrink_to_fit() {
+    Vector<int> v;
+    v.reserve(20);
+    v.push_back(1);
+    v.push_back(2);
+    v.push_back(3);
+
+    assert(v.capacity() >= 20);
+
+    v.shrink_to_fit();
+
+    assert(v.size() == 3);
+    assert(v.capacity() == 3);
+    assert(v[0] == 1);
+    assert(v[1] == 2);
+    assert(v[2] == 3);
+}
+
+void test_shrink_to_fit_empty_vector() {
+    Vector<int> v;
+    v.reserve(10);
+    v.clear();
+
+    assert(v.capacity() >= 10);
+
+    v.shrink_to_fit();
+
+    assert(v.size() == 0);
+    assert(v.capacity() == 0);
+    assert(v.data() == nullptr);
+    assert(v.empty());
+}
+
 int main() {
     test_empty_vector();
     test_clear_empty_vector();
@@ -629,7 +699,12 @@ int main() {
     test_relational_operators();
     test_comparison_with_strings();
 
-    std::cout << "11 etapas: palyginimo operatoriai veikia." << std::endl;
+    test_member_swap();
+    test_non_member_swap();
+    test_shrink_to_fit();
+    test_shrink_to_fit_empty_vector();
+
+    std::cout << "12 etapas: swap() ir shrink_to_fit() veikia." << std::endl;
 
     return 0;
 }
