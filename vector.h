@@ -428,4 +428,57 @@ public:
     }
 };
 
+
+template <typename T>
+bool operator==(const Vector<T>& lhs, const Vector<T>& rhs) {
+    if (lhs.size() != rhs.size()) {
+        return false;
+    }
+
+    for (typename Vector<T>::size_type i = 0; i < lhs.size(); ++i) {
+        if (!(lhs[i] == rhs[i])) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+template <typename T>
+bool operator!=(const Vector<T>& lhs, const Vector<T>& rhs) {
+    return !(lhs == rhs);
+}
+
+template <typename T>
+bool operator<(const Vector<T>& lhs, const Vector<T>& rhs) {
+    typename Vector<T>::size_type i = 0;
+
+    while (i < lhs.size() && i < rhs.size()) {
+        if (lhs[i] < rhs[i]) {
+            return true;
+        }
+        if (rhs[i] < lhs[i]) {
+            return false;
+        }
+        ++i;
+    }
+
+    return lhs.size() < rhs.size();
+}
+
+template <typename T>
+bool operator<=(const Vector<T>& lhs, const Vector<T>& rhs) {
+    return !(rhs < lhs);
+}
+
+template <typename T>
+bool operator>(const Vector<T>& lhs, const Vector<T>& rhs) {
+    return rhs < lhs;
+}
+
+template <typename T>
+bool operator>=(const Vector<T>& lhs, const Vector<T>& rhs) {
+    return !(lhs < rhs);
+}
+
 #endif

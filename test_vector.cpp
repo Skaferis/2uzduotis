@@ -540,6 +540,50 @@ void test_assign_empty_initializer_list() {
     assert(v.empty());
 }
 
+
+void test_equality_operators() {
+    Vector<int> a = {1, 2, 3};
+    Vector<int> b = {1, 2, 3};
+    Vector<int> c = {1, 2, 4};
+    Vector<int> d = {1, 2};
+
+    assert(a == b);
+    assert(!(a != b));
+    assert(a != c);
+    assert(a != d);
+}
+
+void test_relational_operators() {
+    Vector<int> a = {1, 2, 3};
+    Vector<int> b = {1, 2, 4};
+    Vector<int> c = {1, 2, 3, 0};
+    Vector<int> d = {1, 2, 3};
+
+    assert(a < b);
+    assert(a <= b);
+    assert(b > a);
+    assert(b >= a);
+
+    assert(a < c);
+    assert(c > a);
+
+    assert(a <= d);
+    assert(a >= d);
+    assert(!(a < d));
+    assert(!(a > d));
+}
+
+void test_comparison_with_strings() {
+    Vector<std::string> a = {"a", "b"};
+    Vector<std::string> b = {"a", "c"};
+    Vector<std::string> c = {"a", "b"};
+
+    assert(a == c);
+    assert(a != b);
+    assert(a < b);
+    assert(b > a);
+}
+
 int main() {
     test_empty_vector();
     test_clear_empty_vector();
@@ -581,7 +625,11 @@ int main() {
     test_assign_initializer_list();
     test_assign_empty_initializer_list();
 
-    std::cout << "10 etapas: initializer_list ir assign() veikia." << std::endl;
+    test_equality_operators();
+    test_relational_operators();
+    test_comparison_with_strings();
+
+    std::cout << "11 etapas: palyginimo operatoriai veikia." << std::endl;
 
     return 0;
 }
