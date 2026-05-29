@@ -1,21 +1,39 @@
-#include "Vector.h"
 #include <cassert>
 #include <iostream>
-#include <string>
+#include "Vector.h"
+
+void test_empty_vector() {
+    Vector<int> v;
+
+    assert(v.size() == 0);
+    assert(v.capacity() == 0);
+    assert(v.empty());
+}
+
+void test_clear_empty_vector() {
+    Vector<int> v;
+
+    v.clear();
+
+    assert(v.size() == 0);
+    assert(v.capacity() == 0);
+    assert(v.empty());
+}
+
+void test_different_types() {
+    Vector<int> numbers;
+    Vector<double> decimals;
+
+    assert(numbers.empty());
+    assert(decimals.empty());
+}
 
 int main() {
-    Vector<int> skaiciai;
+    test_empty_vector();
+    test_clear_empty_vector();
+    test_different_types();
 
-    assert(skaiciai.size() == 0);
-    assert(skaiciai.capacity() == 0);
-    assert(skaiciai.empty());
+    std::cout << "2 etapas: Vector destruktorius ir clear() veikia." << std::endl;
 
-    Vector<std::string> tekstai;
-
-    assert(tekstai.size() == 0);
-    assert(tekstai.capacity() == 0);
-    assert(tekstai.empty());
-
-    std::cout << "1 etapas: Vector karkasas veikia.\n";
     return 0;
 }
