@@ -654,8 +654,55 @@ void test_shrink_to_fit_empty_vector() {
     assert(v.empty());
 }
 
+
+void test_count_constructor() {
+    Vector<int> v(4);
+
+    assert(v.size() == 4);
+    assert(v.capacity() >= 4);
+    assert(!v.empty());
+    assert(v[0] == 0);
+    assert(v[1] == 0);
+    assert(v[2] == 0);
+    assert(v[3] == 0);
+}
+
+void test_count_value_constructor() {
+    Vector<int> v(5, 7);
+
+    assert(v.size() == 5);
+    assert(v.capacity() >= 5);
+    assert(v[0] == 7);
+    assert(v[1] == 7);
+    assert(v[2] == 7);
+    assert(v[3] == 7);
+    assert(v[4] == 7);
+}
+
+void test_count_value_constructor_with_string() {
+    Vector<std::string> words(3, std::string("testas"));
+
+    assert(words.size() == 3);
+    assert(words[0] == "testas");
+    assert(words[1] == "testas");
+    assert(words[2] == "testas");
+}
+
+void test_zero_count_constructor() {
+    Vector<int> v(0);
+
+    assert(v.size() == 0);
+    assert(v.capacity() == 0);
+    assert(v.empty());
+    assert(v.data() == nullptr);
+}
+
 int main() {
     test_empty_vector();
+    test_count_constructor();
+    test_count_value_constructor();
+    test_count_value_constructor_with_string();
+    test_zero_count_constructor();
     test_clear_empty_vector();
     test_reserve();
     test_push_back_size_and_capacity();
@@ -704,7 +751,7 @@ int main() {
     test_shrink_to_fit();
     test_shrink_to_fit_empty_vector();
 
-    std::cout << "12 etapas: swap() ir shrink_to_fit() veikia." << std::endl;
+    std::cout << "13 etapas: konstruktoriai su dydziu veikia." << std::endl;
 
     return 0;
 }

@@ -66,6 +66,60 @@ public:
     Vector()
         : data_(nullptr), size_(0), capacity_(0) {}
 
+    explicit Vector(size_type count)
+        : data_(nullptr), size_(0), capacity_(0) {
+        if (count == 0) {
+            return;
+        }
+
+        data_ = static_cast<pointer>(::operator new(count * sizeof(T)));
+        capacity_ = count;
+
+        size_type constructed = 0;
+        try {
+            for (; constructed < count; ++constructed) {
+                new (data_ + constructed) T();
+            }
+        } catch (...) {
+            for (size_type i = 0; i < constructed; ++i) {
+                data_[i].~T();
+            }
+            ::operator delete(data_);
+            data_ = nullptr;
+            capacity_ = 0;
+            throw;
+        }
+
+        size_ = count;
+    }
+
+    Vector(size_type count, const T& value)
+        : data_(nullptr), size_(0), capacity_(0) {
+        if (count == 0) {
+            return;
+        }
+
+        data_ = static_cast<pointer>(::operator new(count * sizeof(T)));
+        capacity_ = count;
+
+        size_type constructed = 0;
+        try {
+            for (; constructed < count; ++constructed) {
+                new (data_ + constructed) T(value);
+            }
+        } catch (...) {
+            for (size_type i = 0; i < constructed; ++i) {
+                data_[i].~T();
+            }
+            ::operator delete(data_);
+            data_ = nullptr;
+            capacity_ = 0;
+            throw;
+        }
+
+        size_ = count;
+    }
+
     Vector(const Vector& other)
         : data_(nullptr), size_(0), capacity_(0) {
         if (other.size_ == 0) {
