@@ -1,18 +1,30 @@
 CXX = g++
-CXXFLAGS = -std=c++17 -O2 -Wall
+CXXFLAGS = -std=c++17 -Wall -Wextra -pedantic
+OPTFLAGS = -O2
 
-COMMON = skaiciavimai.cpp ivestis.cpp isvesti.cpp generavimas.cpp
+COMMON = studentas.cpp skaiciavimai.cpp ivestis.cpp isvesti.cpp generavimas.cpp
 
-all: vector deque list
+.PHONY: all test benchmark run clean
 
-vector:
-	$(CXX) $(CXXFLAGS) main_vector.cpp $(COMMON) -o vector
+all: vector test_vector benchmark_vector
 
-deque:
-	$(CXX) $(CXXFLAGS) main_deque.cpp $(COMMON) -o deque
+vector: main_vector.cpp $(COMMON)
+	$(CXX) $(CXXFLAGS) $(OPTFLAGS) main_vector.cpp $(COMMON) -o vector
 
-list:
-	$(CXX) $(CXXFLAGS) main_list.cpp $(COMMON) -o list
+test_vector: test_vector.cpp Vector.h
+	$(CXX) $(CXXFLAGS) test_vector.cpp -o test_vector
+
+benchmark_vector: benchmark_vector.cpp Vector.h
+	$(CXX) $(CXXFLAGS) $(OPTFLAGS) benchmark_vector.cpp -o benchmark_vector
+
+test: test_vector
+	./test_vector
+
+benchmark: benchmark_vector
+	./benchmark_vector quick
+
+run: vector
+	./vector
 
 clean:
-	del /Q vector.exe deque.exe list.exe 2>nul || rm -f vector deque list vector.exe deque.exe list.exe
+	rm -f vector.exe vector test_vector.exe test_vector benchmark_vector.exe benchmark_vector
