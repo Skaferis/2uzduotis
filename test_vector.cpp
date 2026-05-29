@@ -6,6 +6,14 @@
 #include <utility>
 #include "Vector.h"
 
+struct StudentTestData {
+    std::string name;
+    int grade;
+
+    StudentTestData(const std::string& student_name, int student_grade)
+        : name(student_name), grade(student_grade) {}
+};
+
 void test_empty_vector() {
     Vector<int> v;
 
@@ -697,12 +705,40 @@ void test_zero_count_constructor() {
     assert(v.data() == nullptr);
 }
 
+void test_emplace_back_with_string() {
+    Vector<std::string> words;
+    words.reserve(2);
+
+    std::string& first = words.emplace_back("labas");
+    assert(first == "labas");
+
+    words.emplace_back(5, 'x');
+
+    assert(words.size() == 2);
+    assert(words[0] == "labas");
+    assert(words[1] == "xxxxx");
+}
+
+void test_emplace_back_with_custom_type() {
+    Vector<StudentTestData> students;
+
+    StudentTestData& inserted = students.emplace_back("Jonas", 9);
+
+    assert(students.size() == 1);
+    assert(inserted.name == "Jonas");
+    assert(inserted.grade == 9);
+    assert(students[0].name == "Jonas");
+    assert(students[0].grade == 9);
+}
+
 int main() {
     test_empty_vector();
     test_count_constructor();
     test_count_value_constructor();
     test_count_value_constructor_with_string();
     test_zero_count_constructor();
+    test_emplace_back_with_string();
+    test_emplace_back_with_custom_type();
     test_clear_empty_vector();
     test_reserve();
     test_push_back_size_and_capacity();
@@ -751,7 +787,7 @@ int main() {
     test_shrink_to_fit();
     test_shrink_to_fit_empty_vector();
 
-    std::cout << "13 etapas: konstruktoriai su dydziu veikia." << std::endl;
+    std::cout << "14 etapas: emplace_back() veikia." << std::endl;
 
     return 0;
 }

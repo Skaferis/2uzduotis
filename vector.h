@@ -332,6 +332,18 @@ public:
         ++size_;
     }
 
+    template <typename... Args>
+    reference emplace_back(Args&&... args) {
+        if (size_ == capacity_) {
+            reserve(capacity_ == 0 ? 1 : capacity_ * 2);
+        }
+
+        new (data_ + size_) T(std::forward<Args>(args)...);
+        ++size_;
+
+        return back();
+    }
+
     void pop_back() {
         if (size_ > 0) {
             --size_;
