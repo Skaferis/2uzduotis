@@ -231,7 +231,7 @@ Pridėtas duomenų nuskaitymas iš failo, studentų rūšiavimas pagal pasirinkt
 
 ## v0.3
 
-Atliktas programos refaktorizavimas: kodas išskaidytas į kelis `.cpp` ir `.h` failus, panaudotos struktūros bei pridėtas minimalus išimčių valdymas duomenų ir failų tikrinimui.
+Atliktas programos refaktorizavimas: kodas išskaidytas į kelis .cpp ir .h failus, panaudotos struktūros bei pridėtas minimalus išimčių valdymas duomenų ir failų tikrinimui.
 
 
 ## v0.4
@@ -247,11 +247,10 @@ Atliktas std::vector, std::list ir std::deque konteinerių našumo tyrimas, paly
 
 ### Naudojant Makefile
 
-Projektas turi paruoštą `Makefile`.
+Projektas turi paruoštą Makefile.
 
 Norint sukompiliuoti programos versijas:
 
-```bash
 make vector
 make deque
 main list
@@ -316,41 +315,41 @@ Pastaba: optimizavimo flagų poveikis priklauso nuo konkretaus duomenų kiekio i
 
 ## v1.2
 
-Šioje versijoje `Studentas` klasei realizuota penkių metodų taisyklė (Rule of Five), įvesties/išvesties operatoriai ir sukurtas rankinis testavimo failas.
+Šioje versijoje Studentas klasei realizuota penkių metodų taisyklė (Rule of Five), įvesties/išvesties operatoriai ir sukurtas rankinis testavimo failas.
 
 ### Rule of Five realizacija
 
 | Metodas | Paskirtis |
 |---|---|
-| Destruktorius `~Studentas()` | Objektas sunaikinamas pasibaigus jo gyvavimo laikui |
-| Kopijavimo konstruktorius `Studentas(const Studentas& other)` | Sukuria naują objektą kopijuojant kito objekto duomenis |
-| Kopijavimo priskyrimo operatorius `operator=(const Studentas& other)` | Priskiria vieno objekto reikšmes kitam jau egzistuojančiam objektui |
-| Perkėlimo konstruktorius `Studentas(Studentas&& other) noexcept` | Sukuria objektą perkeliant laikino objekto duomenis |
-| Perkėlimo priskyrimo operatorius `operator=(Studentas&& other) noexcept` | Perkelia vieno objekto duomenis kitam jau egzistuojančiam objektui |
+| Destruktorius ~Studentas() | Objektas sunaikinamas pasibaigus jo gyvavimo laikui |
+| Kopijavimo konstruktorius Studentas(const Studentas& other) | Sukuria naują objektą kopijuojant kito objekto duomenis |
+| Kopijavimo priskyrimo operatorius operator=(const Studentas& other) | Priskiria vieno objekto reikšmes kitam jau egzistuojančiam objektui |
+| Perkėlimo konstruktorius Studentas(Studentas&& other) noexcept | Sukuria objektą perkeliant laikino objekto duomenis |
+| Perkėlimo priskyrimo operatorius operator=(Studentas&& other) noexcept | Perkelia vieno objekto duomenis kitam jau egzistuojančiam objektui |
 
 ### Duomenų įvestis
 
 | Būdas | Aprašymas |
 |------|----------|
-| Rankiniu būdu | Naudotojas gali įvesti duomenis per klaviatūrą naudojant `std::cin` ir `operator>>` |
-| Automatinis generavimas | Duomenys generuojami naudojant `generavimas.cpp` |
-| Iš failo | Duomenys nuskaitomi iš `.txt` failų |
+| Rankiniu būdu | Naudotojas gali įvesti duomenis per klaviatūrą naudojant std::cin ir operator>> |
+| Automatinis generavimas | Duomenys generuojami naudojant generavimas.cpp |
+| Iš failo | Duomenys nuskaitomi iš .txt failų |
 
 ### Duomenų išvestis
 
 | Būdas | Aprašymas |
 |------|----------|
-| Į ekraną | Duomenys išvedami naudojant `std::cout` ir `operator<<` |
-| Į failą | Rezultatai įrašomi į failus naudojant `isvestis.cpp` |
+| Į ekraną | Duomenys išvedami naudojant std::cout ir operator<< |
+| Į failą | Rezultatai įrašomi į failus naudojant isvestis.cpp |
 
 ### Perkrauti operatoriai
 
-`Studentas` klasėje realizuoti operatoriai:
+Studentas klasėje realizuoti operatoriai:
 
 | Operatorius | Paskirtis |
 |---|---|
-| `operator>>` | Leidžia įvesti studento duomenis iš įvesties srauto |
-| `operator<<` | Leidžia išvesti studento duomenis į išvesties srautą |
+| operator>> | Leidžia įvesti studento duomenis iš įvesties srauto |
+| operator<< | Leidžia išvesti studento duomenis į išvesties srautą |
 
 https://prnt.sc/bo7Rt40WibG4
 
@@ -360,6 +359,212 @@ https://prnt.sc/bo7Rt40WibG4
 
 ### Abstrakti klasė Zmogus
 
-Sukurta bazinė klasė `Zmogus`, skirta bendrai aprašyti žmogų. Ši klasė yra abstrakti. 
+Sukurta bazinė klasė Zmogus, skirta bendrai aprašyti žmogų. Ši klasė yra abstrakti. 
 
 https://prnt.sc/4RWDRDKIl90Z
+---
+
+# v3.0 - Nuosavas Vector konteineris
+
+Šioje versijoje pradėtas kurti nuosavas šabloninis Vector<T> konteineris, kuris funkcionalumu yra artimas std::vector. Konteineris realizuotas faile Vector.h ir naudoja dinaminę atmintį, Rule of Five, iteratorius, elementų pasiekimo funkcijas, talpos valdymą bei pagrindines modifikavimo funkcijas.
+
+## Vector konteinerio realizacijos principas
+
+Vector<T> saugo elementus vientisame dinaminės atminties bloke. Klasėje naudojami trys pagrindiniai laukai:
+
+T* data_;
+std::size_t size_;
+std::size_t capacity_;
+
+- data_ rodo į dinaminės atminties pradžią;
+- size_ nurodo, kiek elementų šiuo metu yra konteineryje;
+- capacity_ nurodo, kiek elementų galima sutalpinti be naujo atminties perskirstymo.
+
+Kai push_back() metu size_ == capacity_, talpa padidinama dvigubai. Taip sumažinamas atminties perskirstymų skaičius.
+
+## Realizuotos funkcijų grupės
+
+### Member types
+
+Realizuoti pagrindiniai tipų sinonimai:
+
+value_type
+size_type
+reference
+const_reference
+pointer
+const_pointer
+iterator
+const_iterator
+reverse_iterator
+const_reverse_iterator
+
+### Konstruktoriai ir Rule of Five
+
+Realizuota:
+
+Vector()
+Vector(size_type count)
+Vector(size_type count, const T& value)
+Vector(std::initializer_list<T> values)
+Vector(const Vector& other)
+Vector(Vector&& other) noexcept
+Vector& operator=(const Vector& other)
+Vector& operator=(Vector&& other) noexcept
+~Vector()
+
+### Elementų pasiekimas
+
+Realizuota:
+
+operator[]
+at()
+front()
+back()
+data()
+
+### Iteratoriai
+
+Realizuota:
+
+begin()
+end()
+cbegin()
+cend()
+rbegin()
+rend()
+crbegin()
+crend()
+
+### Talpos valdymas
+
+Realizuota:
+
+empty()
+size()
+capacity()
+max_size()
+reserve()
+shrink_to_fit()
+
+### Modifikavimo funkcijos
+
+Realizuota:
+
+clear()
+push_back()
+emplace_back()
+pop_back()
+resize()
+insert()
+erase()
+assign()
+swap()
+
+### Non-member funkcijos
+
+Realizuota:
+
+operator==
+operator!=
+operator<
+operator<=
+operator>
+operator>=
+swap()
+
+## 5 Vector funkcijų naudojimo pavyzdžiai
+
+### 1. push_back()
+
+push_back() įdeda naują elementą į konteinerio pabaigą.
+
+Vector<int> v;
+v.push_back(10);
+v.push_back(20);
+v.push_back(30);
+
+Po šių veiksmų v.size() yra 3, o elementai yra 10, 20, 30.
+
+### 2. at()
+
+at() leidžia pasiekti elementą pagal indeksą ir tikrina ribas.
+
+Vector<int> v = {1, 2, 3};
+std::cout << v.at(1); // 2
+
+Jeigu indeksas išeina už ribų, metama std::out_of_range išimtis.
+
+### 3. reserve()
+
+reserve() iš anksto rezervuoja atmintį, bet nekeičia elementų kiekio.
+
+Vector<int> v;
+v.reserve(100);
+
+Po šios operacijos capacity() yra bent 100, bet size() vis dar yra 0.
+
+### 4. insert()
+
+insert() įterpia elementą į nurodytą poziciją.
+
+Vector<int> v = {1, 3, 4};
+v.insert(v.begin() + 1, 2);
+
+Po šios operacijos elementai yra 1, 2, 3, 4.
+
+### 5. erase()
+
+erase() pašalina elementą arba intervalą.
+
+Vector<int> v = {1, 2, 3, 4};
+v.erase(v.begin() + 1);
+
+Po šios operacijos elementai yra 1, 3, 4.
+
+## Unit testai
+
+Vector testavimui paruoštas failas:
+
+test_vector.cpp
+
+Kompiliavimas:
+
+g++ test_vector.cpp -o test_vector
+
+Paleidimas:
+
+./test_vector
+
+## std::vector ir Vector push_back() spartos palyginimas
+
+Benchmark testas yra faile:
+
+benchmark_vector.cpp
+
+Kompiliavimas:
+
+g++ benchmark_vector.cpp -o benchmark_vector
+
+Greitas testas:
+
+./benchmark_vector quick
+
+Pilnas testas:
+
+./benchmark_vector
+
+### Rezultatų lentelė
+
+|       Dydis | std::vector laikas (s) | std::vector perskirstymai | Vector laikas (s) | Vector perskirstymai |
+| ----------: | ---------------------: | ------------------------: | ----------------: | -------------------: |
+|      10 000 |               0.000038 |                        15 |          0.000048 |                   15 |
+|     100 000 |               0.000230 |                        18 |          0.000300 |                   18 |
+|   1 000 000 |               0.001702 |                        21 |          0.001922 |                   21 |
+|  10 000 000 |               0.025157 |                        25 |          0.028848 |                   25 |
+| 100 000 000 |               0.243895 |                        28 |          0.259655 |                   28 |
+
+
+### Išvada
+
+std::vector yra standartinės bibliotekos konteineris, kuris yra labai optimizuotas, todėl kai kuriais atvejais jis gali veikti greičiau.
