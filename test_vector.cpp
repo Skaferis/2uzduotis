@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <cassert>
 #include <iostream>
+#include <limits>
 #include <stdexcept>
 #include <string>
 #include <utility>
@@ -20,6 +21,25 @@ void test_empty_vector() {
     assert(v.size() == 0);
     assert(v.capacity() == 0);
     assert(v.empty());
+}
+
+void test_max_size() {
+    Vector<int> v;
+
+    assert(v.max_size() > 0);
+    assert(v.max_size() == std::numeric_limits<Vector<int>::size_type>::max() / sizeof(int));
+}
+
+void test_noexcept_basic_methods() {
+    Vector<int> v;
+
+    static_assert(noexcept(v.size()), "size() turi buti noexcept");
+    static_assert(noexcept(v.capacity()), "capacity() turi buti noexcept");
+    static_assert(noexcept(v.empty()), "empty() turi buti noexcept");
+    static_assert(noexcept(v.data()), "data() turi buti noexcept");
+    static_assert(noexcept(v.begin()), "begin() turi buti noexcept");
+    static_assert(noexcept(v.end()), "end() turi buti noexcept");
+    static_assert(noexcept(v.clear()), "clear() turi buti noexcept");
 }
 
 void test_clear_empty_vector() {
@@ -849,6 +869,8 @@ void test_emplace_back_with_custom_type() {
 
 int main() {
     test_empty_vector();
+    test_max_size();
+    test_noexcept_basic_methods();
     test_count_constructor();
     test_count_value_constructor();
     test_count_value_constructor_with_string();
@@ -911,7 +933,7 @@ int main() {
     test_shrink_to_fit();
     test_shrink_to_fit_empty_vector();
 
-    std::cout << "16 etapas: reverse iteratoriai veikia." << std::endl;
+    std::cout << "17 etapas: max_size() ir noexcept metodai veikia." << std::endl;
 
     return 0;
 }

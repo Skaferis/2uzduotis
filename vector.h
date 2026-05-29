@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <initializer_list>
 #include <iterator>
+#include <limits>
 #include <new>
 #include <stdexcept>
 #include <utility>
@@ -27,14 +28,14 @@ private:
     size_type size_;
     size_type capacity_;
 
-    void destroy_elements() {
+    void destroy_elements() noexcept {
         for (size_type i = 0; i < size_; ++i) {
             data_[i].~T();
         }
         size_ = 0;
     }
 
-    void deallocate_storage() {
+    void deallocate_storage() noexcept {
         ::operator delete(data_);
         data_ = nullptr;
         capacity_ = 0;
@@ -205,16 +206,20 @@ public:
         deallocate_storage();
     }
 
-    size_type size() const {
+    size_type size() const noexcept {
         return size_;
     }
 
-    size_type capacity() const {
+    size_type capacity() const noexcept {
         return capacity_;
     }
 
-    bool empty() const {
+    bool empty() const noexcept {
         return size_ == 0;
+    }
+
+    size_type max_size() const noexcept {
+        return std::numeric_limits<size_type>::max() / sizeof(T);
     }
 
     reference operator[](size_type index) {
@@ -255,64 +260,64 @@ public:
         return data_[size_ - 1];
     }
 
-    pointer data() {
+    pointer data() noexcept {
         return data_;
     }
 
-    const_pointer data() const {
+    const_pointer data() const noexcept {
         return data_;
     }
 
 
-    iterator begin() {
+    iterator begin() noexcept {
         return data_;
     }
 
-    const_iterator begin() const {
+    const_iterator begin() const noexcept {
         return data_;
     }
 
-    const_iterator cbegin() const {
+    const_iterator cbegin() const noexcept {
         return data_;
     }
 
-    iterator end() {
+    iterator end() noexcept {
         return data_ + size_;
     }
 
-    const_iterator end() const {
+    const_iterator end() const noexcept {
         return data_ + size_;
     }
 
-    const_iterator cend() const {
+    const_iterator cend() const noexcept {
         return data_ + size_;
     }
 
-    reverse_iterator rbegin() {
+    reverse_iterator rbegin() noexcept {
         return reverse_iterator(end());
     }
 
-    const_reverse_iterator rbegin() const {
+    const_reverse_iterator rbegin() const noexcept {
         return const_reverse_iterator(end());
     }
 
-    const_reverse_iterator crbegin() const {
+    const_reverse_iterator crbegin() const noexcept {
         return const_reverse_iterator(cend());
     }
 
-    reverse_iterator rend() {
+    reverse_iterator rend() noexcept {
         return reverse_iterator(begin());
     }
 
-    const_reverse_iterator rend() const {
+    const_reverse_iterator rend() const noexcept {
         return const_reverse_iterator(begin());
     }
 
-    const_reverse_iterator crend() const {
+    const_reverse_iterator crend() const noexcept {
         return const_reverse_iterator(cbegin());
     }
 
-    void clear() {
+    void clear() noexcept {
         destroy_elements();
     }
 
