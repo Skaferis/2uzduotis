@@ -393,6 +393,98 @@ void test_resize_larger_with_value() {
     assert(words[2] == "naujas");
 }
 
+void test_insert_middle() {
+    Vector<int> v;
+    v.push_back(1);
+    v.push_back(3);
+    v.push_back(4);
+
+    auto it = v.insert(v.begin() + 1, 2);
+
+    assert(v.size() == 4);
+    assert(*it == 2);
+    assert(v[0] == 1);
+    assert(v[1] == 2);
+    assert(v[2] == 3);
+    assert(v[3] == 4);
+}
+
+void test_insert_begin_and_end() {
+    Vector<int> v;
+    v.push_back(20);
+    v.push_back(30);
+
+    auto first = v.insert(v.begin(), 10);
+    auto last = v.insert(v.end(), 40);
+
+    assert(v.size() == 4);
+    assert(*first == 10);
+    assert(*last == 40);
+    assert(v[0] == 10);
+    assert(v[1] == 20);
+    assert(v[2] == 30);
+    assert(v[3] == 40);
+}
+
+void test_insert_with_string() {
+    Vector<std::string> words;
+    words.push_back("vienas");
+    words.push_back("trys");
+
+    std::string word = "du";
+    auto it = words.insert(words.begin() + 1, word);
+
+    assert(words.size() == 3);
+    assert(*it == "du");
+    assert(words[0] == "vienas");
+    assert(words[1] == "du");
+    assert(words[2] == "trys");
+}
+
+void test_erase_middle() {
+    Vector<int> v;
+    v.push_back(10);
+    v.push_back(20);
+    v.push_back(30);
+    v.push_back(40);
+
+    auto it = v.erase(v.begin() + 1);
+
+    assert(v.size() == 3);
+    assert(*it == 30);
+    assert(v[0] == 10);
+    assert(v[1] == 30);
+    assert(v[2] == 40);
+}
+
+void test_erase_last() {
+    Vector<int> v;
+    v.push_back(1);
+    v.push_back(2);
+    v.push_back(3);
+
+    auto it = v.erase(v.end() - 1);
+
+    assert(v.size() == 2);
+    assert(it == v.end());
+    assert(v[0] == 1);
+    assert(v[1] == 2);
+}
+
+void test_erase_with_string() {
+    Vector<std::string> words;
+    words.push_back("a");
+    words.push_back("b");
+    words.push_back("c");
+
+    auto it = words.erase(words.begin());
+
+    assert(words.size() == 2);
+    assert(*it == "b");
+    assert(words[0] == "b");
+    assert(words[1] == "c");
+}
+
 int main() {
     test_empty_vector();
     test_clear_empty_vector();
@@ -421,7 +513,14 @@ int main() {
     test_resize_larger_default_values();
     test_resize_larger_with_value();
 
-    std::cout << "8 etapas: pop_back() ir resize() veikia." << std::endl;
+    test_insert_middle();
+    test_insert_begin_and_end();
+    test_insert_with_string();
+    test_erase_middle();
+    test_erase_last();
+    test_erase_with_string();
+
+    std::cout << "9 etapas: insert() ir erase() veikia." << std::endl;
 
     return 0;
 }

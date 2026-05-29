@@ -299,6 +299,78 @@ public:
             size_ = new_size;
         }
     }
+
+    iterator insert(const_iterator position, const T& value) {
+        size_type index = static_cast<size_type>(position - cbegin());
+        if (index > size_) {
+            throw std::out_of_range("Vector::insert position is out of range");
+        }
+
+        if (size_ == capacity_) {
+            reserve(capacity_ == 0 ? 1 : capacity_ * 2);
+        }
+
+        if (index == size_) {
+            new (data_ + size_) T(value);
+            ++size_;
+            return data_ + index;
+        }
+
+        new (data_ + size_) T(std::move(data_[size_ - 1]));
+
+        for (size_type i = size_ - 1; i > index; --i) {
+            data_[i] = std::move(data_[i - 1]);
+        }
+
+        data_[index] = value;
+        ++size_;
+
+        return data_ + index;
+    }
+
+    iterator insert(const_iterator position, T&& value) {
+        size_type index = static_cast<size_type>(position - cbegin());
+        if (index > size_) {
+            throw std::out_of_range("Vector::insert position is out of range");
+        }
+
+        if (size_ == capacity_) {
+            reserve(capacity_ == 0 ? 1 : capacity_ * 2);
+        }
+
+        if (index == size_) {
+            new (data_ + size_) T(std::move(value));
+            ++size_;
+            return data_ + index;
+        }
+
+        new (data_ + size_) T(std::move(data_[size_ - 1]));
+
+        for (size_type i = size_ - 1; i > index; --i) {
+            data_[i] = std::move(data_[i - 1]);
+        }
+
+        data_[index] = std::move(value);
+        ++size_;
+
+        return data_ + index;
+    }
+
+    iterator erase(const_iterator position) {
+        size_type index = static_cast<size_type>(position - cbegin());
+        if (index >= size_) {
+            throw std::out_of_range("Vector::erase position is out of range");
+        }
+
+        for (size_type i = index; i + 1 < size_; ++i) {
+            data_[i] = std::move(data_[i + 1]);
+        }
+
+        --size_;
+        data_[size_].~T();
+
+        return data_ + index;
+    }
 };
 
 #endif
