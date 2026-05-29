@@ -2,7 +2,10 @@
 #define VECTOR_H
 
 #include <cstddef>
+#include <new>
+#include <utility>
 
+// Nuosavas dinaminis konteineris, kuriamas pagal std::vector principą.
 template <typename T>
 class Vector {
 public:
@@ -20,21 +23,46 @@ private:
     size_type size_;
     size_type capacity_;
 
-    void destroy_elements() noexcept {
+    void destroy_elements() {
         for (size_type i = 0; i < size_; ++i) {
             data_[i].~T();
         }
         size_ = 0;
     }
 
-    void deallocate_storage() noexcept {
+    void deallocate_storage() {
         ::operator delete(data_);
         data_ = nullptr;
         capacity_ = 0;
     }
 
+    void reallocate(size_type new_capacity) {
+        pointer new_data = static_cast<pointer>(::operator new(new_capacity * sizeof(T)));
+        size_type constructed = 0;
+
+        try {
+            for (; constructed < size_; ++constructed) {
+                new (new_data + constructed) T(std::move(data_[constructed]));
+            }
+        } catch (...) {
+            for (size_type i = 0; i < constructed; ++i) {
+                new_data[i].~T();
+            }
+            ::operator delete(new_data);
+            throw;
+        }
+
+        for (size_type i = 0; i < size_; ++i) {
+            data_[i].~T();
+        }
+        ::operator delete(data_);
+
+        data_ = new_data;
+        capacity_ = new_capacity;
+    }
+
 public:
-    Vector() noexcept
+    Vector()
         : data_(nullptr), size_(0), capacity_(0) {}
 
     ~Vector() {
@@ -42,20 +70,44 @@ public:
         deallocate_storage();
     }
 
-    size_type size() const noexcept {
+    size_type size() const {
         return size_;
     }
 
-    size_type capacity() const noexcept {
+    size_type capacity() const {
         return capacity_;
     }
 
-    bool empty() const noexcept {
+    bool empty() const {
         return size_ == 0;
     }
 
-    void clear() noexcept {
+    void clear() {
         destroy_elements();
+    }
+
+    void reserve(size_type new_capacity) {
+        if (new_capacity > capacity_) {
+            reallocate(new_capacity);
+        }
+    }
+
+    void push_back(const T& value) {
+        if (size_ == capacity_) {
+            reserve(capacity_ == 0 ? 1 : capacity_ * 2);
+        }
+
+        new (data_ + size_) T(value);
+        ++size_;
+    }
+
+    void push_back(T&& value) {
+        if (size_ == capacity_) {
+            reserve(capacity_ == 0 ? 1 : capacity_ * 2);
+        }
+
+        new (data_ + size_) T(std::move(value));
+        ++size_;
     }
 };
 
