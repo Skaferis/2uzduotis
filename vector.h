@@ -2,6 +2,7 @@
 #define VECTOR_H
 
 #include <cstddef>
+#include <initializer_list>
 #include <new>
 #include <stdexcept>
 #include <utility>
@@ -97,6 +98,21 @@ public:
         other.data_ = nullptr;
         other.size_ = 0;
         other.capacity_ = 0;
+    }
+
+    Vector(std::initializer_list<T> values)
+        : data_(nullptr), size_(0), capacity_(0) {
+        reserve(values.size());
+
+        try {
+            for (const auto& value : values) {
+                push_back(value);
+            }
+        } catch (...) {
+            clear();
+            deallocate_storage();
+            throw;
+        }
     }
 
     Vector& operator=(const Vector& other) {
@@ -298,6 +314,45 @@ public:
 
             size_ = new_size;
         }
+    }
+
+    void assign(size_type count, const T& value) {
+        clear();
+        reserve(count);
+
+        size_type constructed = 0;
+        try {
+            for (; constructed < count; ++constructed) {
+                new (data_ + constructed) T(value);
+            }
+        } catch (...) {
+            for (size_type i = 0; i < constructed; ++i) {
+                data_[i].~T();
+            }
+            throw;
+        }
+
+        size_ = count;
+    }
+
+    void assign(std::initializer_list<T> values) {
+        clear();
+        reserve(values.size());
+
+        size_type constructed = 0;
+        try {
+            for (const auto& value : values) {
+                new (data_ + constructed) T(value);
+                ++constructed;
+            }
+        } catch (...) {
+            for (size_type i = 0; i < constructed; ++i) {
+                data_[i].~T();
+            }
+            throw;
+        }
+
+        size_ = values.size();
     }
 
     iterator insert(const_iterator position, const T& value) {

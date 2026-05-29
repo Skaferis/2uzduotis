@@ -485,6 +485,61 @@ void test_erase_with_string() {
     assert(words[1] == "c");
 }
 
+void test_initializer_list_constructor() {
+    Vector<int> v = {1, 2, 3, 4};
+
+    assert(v.size() == 4);
+    assert(v.capacity() >= 4);
+    assert(v[0] == 1);
+    assert(v[1] == 2);
+    assert(v[2] == 3);
+    assert(v[3] == 4);
+}
+
+void test_initializer_list_with_string() {
+    Vector<std::string> words = {"vienas", "du", "trys"};
+
+    assert(words.size() == 3);
+    assert(words[0] == "vienas");
+    assert(words[1] == "du");
+    assert(words[2] == "trys");
+}
+
+void test_assign_count_value() {
+    Vector<int> v;
+    v.push_back(1);
+    v.push_back(2);
+
+    v.assign(4, 9);
+
+    assert(v.size() == 4);
+    assert(v[0] == 9);
+    assert(v[1] == 9);
+    assert(v[2] == 9);
+    assert(v[3] == 9);
+}
+
+void test_assign_initializer_list() {
+    Vector<std::string> words;
+    words.push_back("senas");
+
+    words.assign({"a", "b", "c"});
+
+    assert(words.size() == 3);
+    assert(words[0] == "a");
+    assert(words[1] == "b");
+    assert(words[2] == "c");
+}
+
+void test_assign_empty_initializer_list() {
+    Vector<int> v = {1, 2, 3};
+
+    v.assign({});
+
+    assert(v.size() == 0);
+    assert(v.empty());
+}
+
 int main() {
     test_empty_vector();
     test_clear_empty_vector();
@@ -520,7 +575,13 @@ int main() {
     test_erase_last();
     test_erase_with_string();
 
-    std::cout << "9 etapas: insert() ir erase() veikia." << std::endl;
+    test_initializer_list_constructor();
+    test_initializer_list_with_string();
+    test_assign_count_value();
+    test_assign_initializer_list();
+    test_assign_empty_initializer_list();
+
+    std::cout << "10 etapas: initializer_list ir assign() veikia." << std::endl;
 
     return 0;
 }
