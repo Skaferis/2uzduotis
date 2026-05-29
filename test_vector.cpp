@@ -493,6 +493,86 @@ void test_erase_with_string() {
     assert(words[1] == "c");
 }
 
+void test_insert_count_middle() {
+    Vector<int> v = {1, 4};
+
+    auto it = v.insert(v.begin() + 1, 2, 2);
+
+    assert(v.size() == 4);
+    assert(*it == 2);
+    assert(v[0] == 1);
+    assert(v[1] == 2);
+    assert(v[2] == 2);
+    assert(v[3] == 4);
+}
+
+void test_insert_count_begin_and_end() {
+    Vector<std::string> words = {"b"};
+
+    auto first = words.insert(words.begin(), 2, std::string("a"));
+
+    assert(words.size() == 3);
+    assert(*first == "a");
+    assert(words[0] == "a");
+    assert(words[1] == "a");
+    assert(words[2] == "b");
+
+    auto last = words.insert(words.end(), 1, std::string("c"));
+
+    assert(words.size() == 4);
+    assert(*last == "c");
+    assert(words[0] == "a");
+    assert(words[1] == "a");
+    assert(words[2] == "b");
+    assert(words[3] == "c");
+}
+
+void test_insert_count_zero() {
+    Vector<int> v = {1, 2, 3};
+
+    auto it = v.insert(v.begin() + 1, 0, 99);
+
+    assert(v.size() == 3);
+    assert(*it == 2);
+    assert(v[0] == 1);
+    assert(v[1] == 2);
+    assert(v[2] == 3);
+}
+
+void test_erase_range_middle() {
+    Vector<int> v = {1, 2, 3, 4, 5};
+
+    auto it = v.erase(v.begin() + 1, v.begin() + 4);
+
+    assert(v.size() == 2);
+    assert(*it == 5);
+    assert(v[0] == 1);
+    assert(v[1] == 5);
+}
+
+void test_erase_range_to_end() {
+    Vector<int> v = {1, 2, 3, 4};
+
+    auto it = v.erase(v.begin() + 2, v.end());
+
+    assert(v.size() == 2);
+    assert(it == v.end());
+    assert(v[0] == 1);
+    assert(v[1] == 2);
+}
+
+void test_erase_empty_range() {
+    Vector<int> v = {1, 2, 3};
+
+    auto it = v.erase(v.begin() + 1, v.begin() + 1);
+
+    assert(v.size() == 3);
+    assert(*it == 2);
+    assert(v[0] == 1);
+    assert(v[1] == 2);
+    assert(v[2] == 3);
+}
+
 void test_initializer_list_constructor() {
     Vector<int> v = {1, 2, 3, 4};
 
@@ -771,6 +851,12 @@ int main() {
     test_erase_middle();
     test_erase_last();
     test_erase_with_string();
+    test_insert_count_middle();
+    test_insert_count_begin_and_end();
+    test_insert_count_zero();
+    test_erase_range_middle();
+    test_erase_range_to_end();
+    test_erase_empty_range();
 
     test_initializer_list_constructor();
     test_initializer_list_with_string();
@@ -787,7 +873,7 @@ int main() {
     test_shrink_to_fit();
     test_shrink_to_fit_empty_vector();
 
-    std::cout << "14 etapas: emplace_back() veikia." << std::endl;
+    std::cout << "15 etapas: insert(count) ir erase(range) veikia." << std::endl;
 
     return 0;
 }

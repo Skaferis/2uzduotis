@@ -496,6 +496,36 @@ public:
         return data_ + index;
     }
 
+    iterator insert(const_iterator position, size_type count, const T& value) {
+        size_type index = static_cast<size_type>(position - cbegin());
+        if (index > size_) {
+            throw std::out_of_range("Vector::insert position is out of range");
+        }
+
+        if (count == 0) {
+            return data_ == nullptr ? nullptr : data_ + index;
+        }
+
+        Vector temp;
+        temp.reserve(size_ + count);
+
+        for (size_type i = 0; i < index; ++i) {
+            temp.push_back(data_[i]);
+        }
+
+        for (size_type i = 0; i < count; ++i) {
+            temp.push_back(value);
+        }
+
+        for (size_type i = index; i < size_; ++i) {
+            temp.push_back(data_[i]);
+        }
+
+        swap(temp);
+
+        return data_ + index;
+    }
+
     iterator erase(const_iterator position) {
         size_type index = static_cast<size_type>(position - cbegin());
         if (index >= size_) {
@@ -510,6 +540,33 @@ public:
         data_[size_].~T();
 
         return data_ + index;
+    }
+
+    iterator erase(const_iterator first, const_iterator last) {
+        size_type first_index = static_cast<size_type>(first - cbegin());
+        size_type last_index = static_cast<size_type>(last - cbegin());
+
+        if (first_index > last_index || last_index > size_) {
+            throw std::out_of_range("Vector::erase range is out of range");
+        }
+
+        if (first_index == last_index) {
+            return data_ == nullptr ? nullptr : data_ + first_index;
+        }
+
+        size_type count = last_index - first_index;
+
+        for (size_type i = first_index; i + count < size_; ++i) {
+            data_[i] = std::move(data_[i + count]);
+        }
+
+        for (size_type i = size_ - count; i < size_; ++i) {
+            data_[i].~T();
+        }
+
+        size_ -= count;
+
+        return data_ + first_index;
     }
 };
 
