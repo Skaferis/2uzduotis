@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <string>
+#include <utility>
 #include "Vector.h"
 
 void test_empty_vector() {
@@ -146,6 +147,122 @@ void test_const_access() {
     assert(const_v.data() != nullptr);
 }
 
+void test_copy_constructor() {
+    Vector<int> original;
+    original.push_back(1);
+    original.push_back(2);
+    original.push_back(3);
+
+    Vector<int> copy(original);
+
+    assert(copy.size() == original.size());
+    assert(copy.capacity() >= copy.size());
+    assert(copy[0] == 1);
+    assert(copy[1] == 2);
+    assert(copy[2] == 3);
+
+    copy[0] = 100;
+
+    assert(copy[0] == 100);
+    assert(original[0] == 1);
+}
+
+void test_copy_assignment() {
+    Vector<int> first;
+    first.push_back(10);
+    first.push_back(20);
+
+    Vector<int> second;
+    second.push_back(1);
+    second.push_back(2);
+    second.push_back(3);
+
+    second = first;
+
+    assert(second.size() == first.size());
+    assert(second[0] == 10);
+    assert(second[1] == 20);
+
+    second[1] = 99;
+
+    assert(second[1] == 99);
+    assert(first[1] == 20);
+}
+
+void test_self_assignment() {
+    Vector<int> v;
+    v.push_back(5);
+    v.push_back(6);
+
+    v = v;
+
+    assert(v.size() == 2);
+    assert(v[0] == 5);
+    assert(v[1] == 6);
+}
+
+void test_copy_with_string() {
+    Vector<std::string> words;
+    words.push_back("vienas");
+    words.push_back("du");
+
+    Vector<std::string> copy = words;
+
+    assert(copy.size() == 2);
+    assert(copy[0] == "vienas");
+    assert(copy[1] == "du");
+
+    copy[0] = "pakeista";
+
+    assert(copy[0] == "pakeista");
+    assert(words[0] == "vienas");
+}
+
+void test_move_constructor() {
+    Vector<int> original;
+    original.push_back(11);
+    original.push_back(22);
+
+    const auto old_capacity = original.capacity();
+    int* old_data = original.data();
+
+    Vector<int> moved(std::move(original));
+
+    assert(moved.size() == 2);
+    assert(moved.capacity() == old_capacity);
+    assert(moved.data() == old_data);
+    assert(moved[0] == 11);
+    assert(moved[1] == 22);
+
+    assert(original.size() == 0);
+    assert(original.capacity() == 0);
+    assert(original.data() == nullptr);
+}
+
+void test_move_assignment() {
+    Vector<std::string> source;
+    source.push_back("labas");
+    source.push_back("vakaras");
+
+    const auto old_capacity = source.capacity();
+    std::string* old_data = source.data();
+
+    Vector<std::string> target;
+    target.push_back("senas");
+
+    target = std::move(source);
+
+    assert(target.size() == 2);
+    assert(target.capacity() == old_capacity);
+    assert(target.data() == old_data);
+    assert(target[0] == "labas");
+    assert(target[1] == "vakaras");
+
+    assert(source.size() == 0);
+    assert(source.capacity() == 0);
+    assert(source.data() == nullptr);
+}
+
 int main() {
     test_empty_vector();
     test_clear_empty_vector();
@@ -157,8 +274,14 @@ int main() {
     test_at();
     test_front_back_data();
     test_const_access();
+    test_copy_constructor();
+    test_copy_assignment();
+    test_self_assignment();
+    test_copy_with_string();
+    test_move_constructor();
+    test_move_assignment();
 
-    std::cout << "4 etapas: elementu pasiekimo funkcijos veikia." << std::endl;
+    std::cout << "6 etapas: move konstruktorius ir move assignment veikia." << std::endl;
 
     return 0;
 }

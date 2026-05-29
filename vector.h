@@ -6,7 +6,6 @@
 #include <stdexcept>
 #include <utility>
 
-// Nuosavas dinaminis konteineris, kuriamas pagal std::vector principą.
 template <typename T>
 class Vector {
 public:
@@ -65,6 +64,68 @@ private:
 public:
     Vector()
         : data_(nullptr), size_(0), capacity_(0) {}
+
+    Vector(const Vector& other)
+        : data_(nullptr), size_(0), capacity_(0) {
+        if (other.size_ == 0) {
+            return;
+        }
+
+        data_ = static_cast<pointer>(::operator new(other.size_ * sizeof(T)));
+        capacity_ = other.size_;
+
+        size_type constructed = 0;
+        try {
+            for (; constructed < other.size_; ++constructed) {
+                new (data_ + constructed) T(other.data_[constructed]);
+            }
+        } catch (...) {
+            for (size_type i = 0; i < constructed; ++i) {
+                data_[i].~T();
+            }
+            ::operator delete(data_);
+            data_ = nullptr;
+            capacity_ = 0;
+            throw;
+        }
+
+        size_ = other.size_;
+    }
+
+    Vector(Vector&& other) noexcept
+        : data_(other.data_), size_(other.size_), capacity_(other.capacity_) {
+        other.data_ = nullptr;
+        other.size_ = 0;
+        other.capacity_ = 0;
+    }
+
+    Vector& operator=(const Vector& other) {
+        if (this != &other) {
+            Vector temp(other);
+            std::swap(data_, temp.data_);
+            std::swap(size_, temp.size_);
+            std::swap(capacity_, temp.capacity_);
+        }
+
+        return *this;
+    }
+
+    Vector& operator=(Vector&& other) noexcept {
+        if (this != &other) {
+            clear();
+            deallocate_storage();
+
+            data_ = other.data_;
+            size_ = other.size_;
+            capacity_ = other.capacity_;
+
+            other.data_ = nullptr;
+            other.size_ = 0;
+            other.capacity_ = 0;
+        }
+
+        return *this;
+    }
 
     ~Vector() {
         clear();
