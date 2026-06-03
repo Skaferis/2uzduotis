@@ -2,13 +2,13 @@
 #define STUDENTAS_H
 
 #include <string>
-#include <vector>
 #include <iostream>
+#include "vector.h"
 #include "zmogus.h"
 
 class Studentas : public Zmogus {
 private:
-    std::vector<int> paz_;
+    Vector<int> paz_;
     int exam_;
     double rez_;
     double med_;
@@ -16,10 +16,9 @@ private:
 public:
     Studentas();
     Studentas(const std::string& vardas, const std::string& pavarde,
-              const std::vector<int>& paz, int exam,
+              const Vector<int>& paz, int exam,
               double rez = 0.0, double med = 0.0);
 
-    // Rule of Five lieka
     Studentas(const Studentas& other);
     Studentas(Studentas&& other) noexcept;
     Studentas& operator=(const Studentas& other);
@@ -28,15 +27,13 @@ public:
 
     void print() const override;
 
-    // getteriai
     std::string vardas() const;
     std::string pavarde() const;
-    const std::vector<int>& paz() const;
+    const Vector<int>& paz() const;
     int exam() const;
     double rez() const;
     double med() const;
 
-    // setteriai
     void setVardas(const std::string& vardas);
     void setPavarde(const std::string& pavarde);
     void setExam(int exam);

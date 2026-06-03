@@ -11,10 +11,10 @@ all: vector test_vector benchmark_vector
 vector: main_vector.cpp $(COMMON)
 	$(CXX) $(CXXFLAGS) $(OPTFLAGS) main_vector.cpp $(COMMON) -o vector
 
-test_vector: test_vector.cpp Vector.h
+test_vector: test_vector.cpp vector.h
 	$(CXX) $(CXXFLAGS) test_vector.cpp -o test_vector
 
-benchmark_vector: benchmark_vector.cpp Vector.h
+benchmark_vector: benchmark_vector.cpp vector.h
 	$(CXX) $(CXXFLAGS) $(OPTFLAGS) benchmark_vector.cpp -o benchmark_vector
 
 test: test_vector
