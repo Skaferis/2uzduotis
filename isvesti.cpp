@@ -1,13 +1,13 @@
 #include <iostream>
 #include <iomanip>
-#include <deque>
-#include <list>
+#include <string>
 #include "isvestis.h"
 
 using std::cout;
 using std::left;
 
-void spausdinti(const std::vector<Studentas>& grupe, bool rodytiMediana) {
+template <typename Container>
+void spausdintiImpl(const Container& grupe, bool rodytiMediana) {
 
     cout << left
          << std::setw(15) << "Vardas"
@@ -35,4 +35,12 @@ void spausdinti(const std::vector<Studentas>& grupe, bool rodytiMediana) {
 
         cout << "\n";
     }
+}
+
+void spausdinti(const std::vector<Studentas>& grupe, bool rodytiMediana) {
+    spausdintiImpl(grupe, rodytiMediana);
+}
+
+void spausdinti(const Vector<Studentas>& grupe, bool rodytiMediana) {
+    spausdintiImpl(grupe, rodytiMediana);
 }

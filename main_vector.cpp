@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <vector>
 #include <iomanip>
 #include <algorithm>
 #include <cstdlib>
@@ -13,6 +12,7 @@
 #include <stdexcept> // std::runtime_error
 #include <chrono>
 
+#include "vector.h"
 #include "studentas.h" // studentu struktūros aprašas
 #include "skaiciavimai.h" // funkcijos skaičiavimams
 #include "ivestis.h" // funkcijos įvesties validacijai
@@ -24,14 +24,13 @@ using std::cout;
 using std::cin;
 using std::endl;
 using std::string;
-using std::vector;
 using std::getline;
 using std::ifstream;
 using std::stringstream;
 using std::ofstream;
 
 int ranka() {
-    vector<Studentas> grupe;
+    Vector<Studentas> grupe;
 
     while (true) {
         Studentas A;          // naujas studentas kiekvieną kartą
@@ -127,7 +126,7 @@ int generavimas() {
         cin >> ndKiekis;
     }
 
-    vector<int> dydziai = {1000, 10000, 100000, 1000000, 10000000};
+    Vector<int> dydziai = {1000, 10000, 100000, 1000000, 10000000};
 
     try {
         for (int kiekis : dydziai) {
@@ -149,15 +148,15 @@ int automatiskai() {
     std::uniform_int_distribution<> dist10(1, 10); // 1..10
 
     int stud;
-    vector<Studentas> grupe;
+    Vector<Studentas> grupe;
 
-    vector<string> vardai_v = {"Jonas","Mantas","Tomas", "Petras", "Domas", "Lukas", "Simas", "Dainius", "Giedrius", "Rokas"};
-    vector<string> pavardes_v = {"Kazlauskas","Petrauskas", "Jonauskas", "Domauskas", "Lukauskas", "Simanauskas", "Dainiauskas", "Giedriuskas", "Rokauskas", "Ievaskas"};
+    Vector<string> vardai_v = {"Jonas","Mantas","Tomas", "Petras", "Domas", "Lukas", "Simas", "Dainius", "Giedrius", "Rokas"};
+    Vector<string> pavardes_v = {"Kazlauskas","Petrauskas", "Jonauskas", "Domauskas", "Lukauskas", "Simanauskas", "Dainiauskas", "Giedriuskas", "Rokauskas", "Ievaskas"};
 
-    vector<string> vardai_m = {"Ieva","Gabija", "Ugne", "Egle", "Aiste", "Rasa", "Indre", "Dovile", "Agniete", "Viktorija"};
-    vector<string> pavardes_m = {"Kazlauskaite","Petrauskaite", "Jonauskaite", "Domauskaite", "Lukauskaite", "Simanauskaite", "Dainiauskaite", "Giedriuskaite", "Rokauskaite", "Ievaskaite"};
+    Vector<string> vardai_m = {"Ieva","Gabija", "Ugne", "Egle", "Aiste", "Rasa", "Indre", "Dovile", "Agniete", "Viktorija"};
+    Vector<string> pavardes_m = {"Kazlauskaite","Petrauskaite", "Jonauskaite", "Domauskaite", "Lukauskaite", "Simanauskaite", "Dainiauskaite", "Giedriuskaite", "Rokauskaite", "Ievaskaite"};
 
-    vector<Asmuo> studentai;
+    Vector<Asmuo> studentai;
 
     for (const auto& v : vardai_v) {
         for (const auto& p : pavardes_v) {
@@ -228,9 +227,9 @@ int skaitymas() {
     auto skaitymoPradzia = std::chrono::high_resolution_clock::now();
 
     ifstream failas(failoPavadinimas+".txt");
-    vector<Studentas> grupe;
-    vector<Studentas> vargsiukai;
-    vector<Studentas> galvociai;
+    Vector<Studentas> grupe;
+    Vector<Studentas> vargsiukai;
+    Vector<Studentas> galvociai;
 
     try {
         if (!failas.is_open()) {
@@ -307,25 +306,25 @@ int skaitymas() {
     auto rusiavimoPradzia = std::chrono::high_resolution_clock::now();
 
     if (r == 1) {
-        sort(grupe.begin(), grupe.end(),
+        std::sort(grupe.begin(), grupe.end(),
             [](const Studentas& a, const Studentas& b) {
                 return a.vardas() < b.vardas();
             });
     }
     else if (r == 2) {
-        sort(grupe.begin(), grupe.end(),
+        std::sort(grupe.begin(), grupe.end(),
             [](const Studentas& a, const Studentas& b) {
                 return a.pavarde() < b.pavarde();
             });
     }
     else if (r == 3) {
-        sort(grupe.begin(), grupe.end(),
+        std::sort(grupe.begin(), grupe.end(),
             [](const Studentas& a, const Studentas& b) {
                 return a.rez() > b.rez(); // galutinis (vid.)
             });
     }
     else if (r == 4) {
-        sort(grupe.begin(), grupe.end(),
+        std::sort(grupe.begin(), grupe.end(),
             [](const Studentas& a, const Studentas& b) {
                 return a.med() > b.med(); // galutinis (med.)
             });
