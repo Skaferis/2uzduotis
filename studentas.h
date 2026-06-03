@@ -1,14 +1,14 @@
 #ifndef STUDENTAS_H
 #define STUDENTAS_H
 
-#include <string>
 #include <iostream>
-#include "vector.h"
+#include <string>
+#include "programos_vector.h"
 #include "zmogus.h"
 
 class Studentas : public Zmogus {
 private:
-    Vector<int> paz_;
+    ProgramosVector<int> paz_;
     int exam_;
     double rez_;
     double med_;
@@ -16,7 +16,7 @@ private:
 public:
     Studentas();
     Studentas(const std::string& vardas, const std::string& pavarde,
-              const Vector<int>& paz, int exam,
+              const ProgramosVector<int>& paz, int exam,
               double rez = 0.0, double med = 0.0);
 
     Studentas(const Studentas& other);
@@ -29,7 +29,7 @@ public:
 
     std::string vardas() const;
     std::string pavarde() const;
-    const Vector<int>& paz() const;
+    const ProgramosVector<int>& paz() const;
     int exam() const;
     double rez() const;
     double med() const;

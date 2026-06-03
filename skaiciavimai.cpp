@@ -1,8 +1,7 @@
 #include "skaiciavimai.h"
 #include <algorithm>
 
-template <typename Container>
-double skaiciuotiMedianaImpl(Container paz) {
+double skaiciuotiMediana(ProgramosVector<int> paz) {
     std::sort(paz.begin(), paz.end());
 
     int n = static_cast<int>(paz.size());
@@ -18,14 +17,6 @@ double skaiciuotiMedianaImpl(Container paz) {
     return (paz[n / 2 - 1] + paz[n / 2]) / 2.0;
 }
 
-double skaiciuotiMediana(std::vector<int> paz) {
-    return skaiciuotiMedianaImpl(paz);
-}
-
-double skaiciuotiMediana(Vector<int> paz) {
-    return skaiciuotiMedianaImpl(paz);
-}
-
 double skaiciuotiGalutini(int suma, int kiekis, int egzaminas) {
     if (kiekis > 0) {
         double vid = static_cast<double>(suma) / kiekis;
@@ -35,12 +26,7 @@ double skaiciuotiGalutini(int suma, int kiekis, int egzaminas) {
     return egzaminas * 0.6;
 }
 
-double skaiciuotiGalutiniMed(std::vector<int> paz, int egzaminas) {
-    double mediana = skaiciuotiMediana(paz);
-    return mediana * 0.4 + egzaminas * 0.6;
-}
-
-double skaiciuotiGalutiniMed(Vector<int> paz, int egzaminas) {
+double skaiciuotiGalutiniMed(ProgramosVector<int> paz, int egzaminas) {
     double mediana = skaiciuotiMediana(paz);
     return mediana * 0.4 + egzaminas * 0.6;
 }

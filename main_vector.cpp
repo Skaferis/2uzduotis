@@ -30,7 +30,7 @@ using std::stringstream;
 using std::ofstream;
 
 int ranka() {
-    Vector<Studentas> grupe;
+    ProgramosVector<Studentas> grupe;
 
     while (true) {
         Studentas A;          // naujas studentas kiekvieną kartą
@@ -148,7 +148,7 @@ int automatiskai() {
     std::uniform_int_distribution<> dist10(1, 10); // 1..10
 
     int stud;
-    Vector<Studentas> grupe;
+    ProgramosVector<Studentas> grupe;
 
     Vector<string> vardai_v = {"Jonas","Mantas","Tomas", "Petras", "Domas", "Lukas", "Simas", "Dainius", "Giedrius", "Rokas"};
     Vector<string> pavardes_v = {"Kazlauskas","Petrauskas", "Jonauskas", "Domauskas", "Lukauskas", "Simanauskas", "Dainiauskas", "Giedriuskas", "Rokauskas", "Ievaskas"};
@@ -227,9 +227,9 @@ int skaitymas() {
     auto skaitymoPradzia = std::chrono::high_resolution_clock::now();
 
     ifstream failas(failoPavadinimas+".txt");
-    Vector<Studentas> grupe;
-    Vector<Studentas> vargsiukai;
-    Vector<Studentas> galvociai;
+    ProgramosVector<Studentas> grupe;
+    ProgramosVector<Studentas> vargsiukai;
+    ProgramosVector<Studentas> galvociai;
 
     try {
         if (!failas.is_open()) {

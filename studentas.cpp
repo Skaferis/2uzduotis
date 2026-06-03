@@ -1,12 +1,12 @@
 #include "studentas.h"
-#include <utility>
 #include <iostream>
+#include <utility>
 
 Studentas::Studentas()
     : Zmogus("Vardenis", "Pavardenis"), exam_(0), rez_(0.0), med_(0.0) {}
 
 Studentas::Studentas(const std::string& vardas, const std::string& pavarde,
-                     const Vector<int>& paz, int exam,
+                     const ProgramosVector<int>& paz, int exam,
                      double rez, double med)
     : Zmogus(vardas, pavarde), paz_(paz), exam_(exam), rez_(rez), med_(med) {}
 
@@ -58,7 +58,7 @@ std::string Studentas::pavarde() const {
     return pavarde_;
 }
 
-const Vector<int>& Studentas::paz() const {
+const ProgramosVector<int>& Studentas::paz() const {
     return paz_;
 }
 
