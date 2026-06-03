@@ -1,4 +1,4 @@
-# Studentų rezultatų analizės programa (v0.4)
+# Studentų rezultatų analizės programa (v3.0)
 
 Programa skirta studentų duomenų apdorojimui. Ji gali:
 
@@ -15,12 +15,16 @@ Programa skirta studentų duomenų apdorojimui. Ji gali:
 
 Projektas suskirstytas į kelis failus:
 
-- main.cpp – pagrindinė programos logika
-- studentas.h – Studentas struktūra
+- main_vector.cpp – pagrindinė programos logika
+- studentas.h / studentas.cpp – Studentas klasė
 - skaiciavimai.cpp / .h – galutinio balo ir medianos skaičiavimas
 - ivestis.cpp / .h – įvesties validacija
 - isvestis.cpp / .h – rezultatų spausdinimas
 - generavimas.cpp / .h – failų generavimas
+- vector.h – nuosavas Vector konteineris
+- programos_vector.h – konteinerio pasirinkimas tarp std::vector ir Vector
+- test_vector.cpp – Vector testai
+- benchmark_vector.cpp – std::vector ir Vector push_back palyginimas
 
 ## Sugeneruoti duomenų failai
 
@@ -253,15 +257,17 @@ Norint sukompiliuoti programos versijas:
 
 make vector
 make deque
-main list
+make list
 
 ## Kompiliuoti terminale:
 
-g++ main_vector.cpp skaiciavimai.cpp ivestis.cpp isvesti.cpp generavimas.cpp -o vector
+g++ -std=c++17 -O2 -Wall -Wextra -pedantic -DNUOSAVAS_VECTOR main_vector.cpp studentas.cpp skaiciavimai.cpp ivestis.cpp isvesti.cpp generavimas.cpp -o vector
+g++ -std=c++17 -O2 -Wall -Wextra -pedantic main_vector.cpp studentas.cpp skaiciavimai.cpp ivestis.cpp isvesti.cpp generavimas.cpp -o std_vector
 g++ main_deque.cpp skaiciavimai.cpp ivestis.cpp isvesti.cpp generavimas.cpp -o deque
 g++ main_list.cpp skaiciavimai.cpp ivestis.cpp isvesti.cpp generavimas.cpp -o list
 
 ./vector.exe
+./std_vector.exe
 ./deque.exe
 ./list.exe
 
@@ -366,7 +372,7 @@ https://prnt.sc/4RWDRDKIl90Z
 
 # v3.0 - Nuosavas Vector konteineris
 
-Šioje versijoje pradėtas kurti nuosavas šabloninis Vector<T> konteineris, kuris funkcionalumu yra artimas std::vector. Konteineris realizuotas faile Vector.h ir naudoja dinaminę atmintį, Rule of Five, iteratorius, elementų pasiekimo funkcijas, talpos valdymą bei pagrindines modifikavimo funkcijas.
+Šioje versijoje pradėtas kurti nuosavas šabloninis Vector<T> konteineris, kuris funkcionalumu yra artimas std::vector. Konteineris realizuotas faile vector.h ir naudoja dinaminę atmintį, Rule of Five, iteratorius, elementų pasiekimo funkcijas, talpos valdymą bei pagrindines modifikavimo funkcijas.
 
 ## Vector konteinerio realizacijos principas
 
@@ -530,7 +536,7 @@ test_vector.cpp
 
 Kompiliavimas:
 
-g++ test_vector.cpp -o test_vector
+g++ -std=c++17 -Wall -Wextra -pedantic test_vector.cpp -o test_vector
 
 Paleidimas:
 
@@ -544,7 +550,7 @@ benchmark_vector.cpp
 
 Kompiliavimas:
 
-g++ benchmark_vector.cpp -o benchmark_vector
+g++ -std=c++17 -O2 -Wall -Wextra -pedantic benchmark_vector.cpp -o benchmark_vector
 
 Greitas testas:
 
@@ -568,3 +574,24 @@ Pilnas testas:
 ### Išvada
 
 std::vector yra standartinės bibliotekos konteineris, kuris yra labai optimizuotas, todėl kai kuriais atvejais jis gali veikti greičiau.
+
+
+### Vector vs std::vector
+
+| Failas                | Konteineris | Nuskaitymas | Rūšiavimas | Skirstymas |  Įrašymas | Operacijų suma |
+| --------------------- | ----------- | ----------: | ---------: | ---------: | --------: | -------------: |
+| studentai100000.txt   | std::vector |    0.322654 |   0.061694 |   0.034922 |  0.346233 |       0.765503 |
+| studentai100000.txt   | Vector      |    0.284720 |   0.068381 |   0.043423 |  0.289048 |       0.685572 |
+| studentai1000000.txt  | std::vector |    2.817360 |   0.722522 |   0.443347 |  3.123580 |       7.106809 |
+| studentai1000000.txt  | Vector      |    2.847310 |   0.837787 |   0.380090 |  2.876570 |       6.941757 |
+| studentai10000000.txt | std::vector |   45.853800 |   8.785990 |   4.259140 | 30.294800 |      89.193730 |
+| studentai10000000.txt | Vector      |   31.866800 |  10.629000 |   4.441410 | 29.645600 |      76.582810 |
+
+
+| Failas                | std::vector operacijų suma | Vector operacijų suma | Rezultatas                    |
+| --------------------- | -------------------------: | --------------------: | ----------------------------- |
+| studentai100000.txt   |                 0.765503 s |            0.685572 s | Vector greitesnis apie 10.4 % |
+| studentai1000000.txt  |                 7.106809 s |            6.941757 s | Vector greitesnis apie 2.3 %  |
+| studentai10000000.txt |                89.193730 s |           76.582810 s | Vector greitesnis apie 14.1 % |
+
+Pastaba: Vector ir std::vector programos buvo paleistos su tais pačiais sugeneruotais failais. Failų generavimas į šį palyginimą neįtrauktas, nes jis labiau priklauso nuo disko įrašymo spartos, o ne nuo konteinerio veikimo.
