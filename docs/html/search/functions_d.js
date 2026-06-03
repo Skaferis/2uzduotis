@@ -1,0 +1,5 @@
+var searchData=
+[
+  ['vardas_0',['vardas',['../class_studentas.html#a000a73298cd723400eeea22427bd437b',1,'Studentas::vardas()'],['../class_zmogus.html#a03de7738fc8f68275e401a3b96954cf0',1,'Zmogus::vardas()']]],
+  ['vector_1',['Vector',['../class_vector.html#a39d6069675db4ecfc1ab81d440da759a',1,'Vector::Vector()'],['../class_vector.html#a59a099d06189fc2ee680b5c3aee4fa81',1,'Vector::Vector(size_type count)'],['../class_vector.html#aa7369e608e7d03fed1872689bbf1973a',1,'Vector::Vector(size_type count, const T &amp;value)'],['../class_vector.html#a940f94b7c4a1c15a65a1ab6e13859dfe',1,'Vector::Vector(const Vector &amp;other)'],['../class_vector.html#a5ed9bb7852ccee071f8418d10182927f',1,'Vector::Vector(Vector &amp;&amp;other) noexcept'],['../class_vector.html#a9d78707b36d6ff373bdd2763d193ac8c',1,'Vector::Vector(std::initializer_list&lt; T &gt; values)']]]
+];

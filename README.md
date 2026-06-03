@@ -595,3 +595,15 @@ std::vector yra standartinės bibliotekos konteineris, kuris yra labai optimizuo
 | studentai10000000.txt |                89.193730 s |           76.582810 s | Vector greitesnis apie 14.1 % |
 
 Pastaba: Vector ir std::vector programos buvo paleistos su tais pačiais sugeneruotais failais. Failų generavimas į šį palyginimą neįtrauktas, nes jis labiau priklauso nuo disko įrašymo spartos, o ne nuo konteinerio veikimo.
+
+## Doxygen dokumentacija
+
+Projektui paruoštas Doxyfile failas. Dokumentacija generuojama komanda:
+
+doxygen Doxyfile
+
+Sugeneruota HTML dokumentacija atsiranda aplanke:
+
+docs/html/index.html
+
+Dokumentacijoje aprašomas nuosavas Vector konteineris, Studentas klasė, Zmogus abstrakti klasė ir pagalbinės programos funkcijos.
